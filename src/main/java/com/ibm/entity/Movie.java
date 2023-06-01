@@ -3,6 +3,7 @@ package com.ibm.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,9 +18,11 @@ public class Movie {
 	@Id
 	@GeneratedValue
 	private int id;
+	@Column(unique = true, nullable = false)
 	private String name;
-	private String genre;
-
+	
+	@ElementCollection
+	private List<String> genre;
 	@ElementCollection
 	private List<String> reviews;
 	private LocalDate releaseDate;
@@ -42,11 +45,11 @@ public class Movie {
 		this.name = name;
 	}
 
-	public String getGenre() {
+	public List<String> getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(List<String> genre) {
 		this.genre = genre;
 	}
 

@@ -2,6 +2,7 @@ package com.ibm.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -11,8 +12,9 @@ import javax.persistence.Id;
 public class Screen {
 
 	@Id
+	@GeneratedValue
 	private int id;
-	@Column(length = 30)
+	@Column(unique = true, nullable = false)
 	private String name;
 	private int x;
 	private int y;
