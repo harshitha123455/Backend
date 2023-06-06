@@ -21,7 +21,6 @@ public class Admin {
 	private String contactNumber;
 	private String email;
 	private String passwordHash;
-	private String salt;
 	public int getId() {
 		return id;
 	}
@@ -51,12 +50,6 @@ public class Admin {
 	}
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
-	}
-	public String getSalt() {
-		return salt;
-	}
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 	
 	

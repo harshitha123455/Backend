@@ -6,4 +6,5 @@ import com.ibm.entity.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
+	Admin findByEmail(String email);
 }
