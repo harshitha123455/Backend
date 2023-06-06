@@ -3,9 +3,12 @@ package com.ibm.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ibm.entity.Admin;
+import com.ibm.entity.Movie;
 import com.ibm.pojo.AdminDetails;
 import com.ibm.pojo.AdminLogin;
 import com.ibm.service.AdminService;
@@ -19,32 +22,39 @@ public class AdminController {
     private AdminService service;
 
     @PostMapping(path = "/add", consumes = "application/json")
-    public int saveAdmin(@RequestBody AdminDetails adminDetails) {
-        return service.save(adminDetails);
+    public ResponseEntity<String> saveAdmin(@RequestBody AdminDetails adminDetails) {
+    	int id = service.save(adminDetails);
+    	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body("Admin added with id: " + id);
     }
 
     @GetMapping (path="/list", produces = "application/json")
-    public List<Admin> getAllAdmins() {
-        return service.list();
+    public ResponseEntity<List<Admin>> getAllAdmins() {
+    	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body(service.list());
     }
 
     @GetMapping(path = "/id/{id}", produces = "application/json")
-    public Admin getAdminById(@PathVariable int id) {
-        return service.searchById(id);
+    public ResponseEntity<Admin> getAdminById(@PathVariable int id) {
+    	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body(service.searchById(id));
     }
 
     @GetMapping(path = "/email/{email}", produces = "application/json")
-    public Admin getAdminByEmail(@PathVariable String email) {
-        return service.searchByEmail(email);
+    public ResponseEntity<Admin> getAdminByEmail(@PathVariable String email) {
+    	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body(service.searchByEmail(email));
     }
 
     @DeleteMapping(path = "id/{id}", produces = "application/json")
-    public Boolean deleteAdmin(@PathVariable int id) {
-        return service.remove(id);
+    public ResponseEntity<String> deleteAdmin(@PathVariable int id) {
+    	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body("Admin with id: " + id + " deleted successfully");
     }
 
     @PostMapping(path = "/login", consumes = "application/json")
-    public String authenticateAdmin(@RequestBody AdminLogin a) {
-        return service.authenticate(a.getEmail(), a.getPassword());
+    public ResponseEntity<String> authenticateAdmin(@RequestBody AdminLogin a) {
+    	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body(service.authenticate(a.getEmail(), a.getPassword()));
     }
 }
