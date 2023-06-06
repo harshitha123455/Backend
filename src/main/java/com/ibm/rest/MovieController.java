@@ -21,14 +21,13 @@ import com.ibm.service.MovieService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/movie")
 public class MovieController {
 
 	@Autowired
 	private MovieService service;
 
-//	http://localhost:8880/movie/add
-	@PostMapping(path = "/add", consumes = "application/json")
+//	http://localhost:8880/admin/movie/add
+	@PostMapping(path = "/admin/movie/add", consumes = "application/json")
 	public ResponseEntity<String> addMovie(@RequestBody Movie m) throws MovieAlreadyExistException {
 		int id = service.save(m);
         return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
@@ -36,14 +35,14 @@ public class MovieController {
 	}
 
 //	http://localhost:8880/movie/all	
-	@GetMapping(path = "/all", produces = "application/json")
+	@GetMapping(path = "/movie/all", produces = "application/json")
 	public ResponseEntity<List<Movie>> getAllMovies() {
 		 return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
 					.body(service.list());
 	}
 
 //	http://localhost:8880/movie/search/id/{id}
-	@GetMapping(path = "/search/id/{id}", produces = "application/json")
+	@GetMapping(path = "/movie/search/id/{id}", produces = "application/json")
 	public ResponseEntity<Movie> getMovieById(@PathVariable int id) throws MovieNotFoundException {
 		Movie m = service.searchById(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
@@ -51,23 +50,23 @@ public class MovieController {
 	}
 
 //	http://localhost:8880/movie/search/name/{name}
-	@GetMapping(path = "/search/name/{name}", produces = "application/json")
+	@GetMapping(path = "/movie/search/name/{name}", produces = "application/json")
 	public ResponseEntity<Movie> getMovieByName(@PathVariable String name) throws MovieNotFoundException {
 		Movie m= service.searchByName(name);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
 				.body(m);
 	}
 
-//	http://localhost:8880/movie/remove/id/{id}
-	@DeleteMapping(path = "/remove/id/{id}")
+//	http://localhost:8880/admin/movie/remove/id/{id}
+	@DeleteMapping(path = "/admin/movie/remove/id/{id}")
 	public ResponseEntity<String> removeMovieById(@PathVariable int id) throws MovieNotFoundException {
 		service.removeById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
 				.body("Movie with id: " + id + " deleted successfully");
 	}
 
-//	http://localhost:8880/movie/remove/name/{name}
-	@DeleteMapping(path = "/remove/name/{name}")
+//	http://localhost:8880/admin/movie/remove/name/{name}
+	@DeleteMapping(path = "/admin/movie/remove/name/{name}")
 	public ResponseEntity<String> removeMovieByName(@PathVariable String name) throws MovieNotFoundException {
 		service.removeByName(name);
         return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")

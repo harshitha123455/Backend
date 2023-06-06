@@ -22,14 +22,13 @@ import com.ibm.service.ScreenService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/screen")
 public class ScreenController {
 
 	@Autowired
 	private ScreenService service;
 
-//	http://localhost:8880/screen/add
-	@PostMapping(path = "/add", consumes = "application/json")
+//	http://localhost:8880/admin/screen/add
+	@PostMapping(path = "/admin/screen/add", consumes = "application/json")
 	public ResponseEntity<String> addScreen(@RequestBody Screen s) throws ScreenAlreadyExistException {
 		int id = service.save(s);
 		HttpHeaders headers = new HttpHeaders();
@@ -38,37 +37,37 @@ public class ScreenController {
 	}
 
 //	http://localhost:8880/screen/all
-	@GetMapping(path = "/all", produces = "application/json")
+	@GetMapping(path = "/screen/all", produces = "application/json")
 	public ResponseEntity<List<Screen>> getAllScreens() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
 				.body(service.list());
 	}
 
 //	http://localhost:8880/screen/search/id/{id}
-	@GetMapping(path = "/search/id/{id}", produces = "application/json")
+	@GetMapping(path = "/screen/search/id/{id}", produces = "application/json")
 	public ResponseEntity<Screen> getScreenById(@PathVariable int id) throws ScreenNotFoundException {
 		Screen s = service.searchById(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController").body(s);
 	}
 
 //	http://localhost:8880/screen/search/name/{name}
-	@GetMapping(path = "/search/name/{name}", produces = "application/json")
+	@GetMapping(path = "/screen/search/name/{name}", produces = "application/json")
 	public ResponseEntity<Screen> getScreenByName(@PathVariable String name) throws ScreenNotFoundException {
 		Screen s = service.searchByName(name);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
 				.body(s);
 	}
 
-//	http://localhost:8880/screen/remove/id/{id}
-	@DeleteMapping(path = "/remove/id/{id}")
+//	http://localhost:8880/admin/screen/remove/id/{id}
+	@DeleteMapping(path = "/admin/screen/remove/id/{id}")
 	public ResponseEntity<String> removeScreenById(@PathVariable int id) throws ScreenNotFoundException {
 		service.removeById(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
 				.body("Movie with id: " + id + " deleted successfully");
 	}
 
-//	http://localhost:8880/screen/remove/name/{name}
-	@DeleteMapping(path = "/remove/name/{name}")
+//	http://localhost:8880/admin/screen/remove/name/{name}
+	@DeleteMapping(path = "/admin/screen/remove/name/{name}")
 	public ResponseEntity<String> removeScreenByName(@PathVariable String name) throws ScreenNotFoundException {
 		service.removeByName(name);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
