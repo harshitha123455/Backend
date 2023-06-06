@@ -23,6 +23,7 @@ public class Booking {
 	private Payment payment;
 	@ManyToOne
 	private User user;
+	private String type;
 	public int getId() {
 		return id;
 	}
@@ -52,6 +53,12 @@ public class Booking {
 	}
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

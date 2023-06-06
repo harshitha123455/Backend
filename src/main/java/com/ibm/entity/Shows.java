@@ -22,9 +22,11 @@ public class Shows {
 	private Movie movie;
 	@ManyToOne
 	private Screen screen;
-
 	@OneToOne
 	private SeatingArrangement seatingArrangement;
+	private double normalRate;
+	private double executiveRate;
+	private double premiumRate;
 
 	public int getId() {
 		return id;
@@ -64,6 +66,30 @@ public class Shows {
 
 	public void setSeatingArrangement(SeatingArrangement seatingArrangement) {
 		this.seatingArrangement = seatingArrangement;
+	}
+
+	public double getNormalRate() {
+		return normalRate;
+	}
+
+	public void setNormalRate(double normalRate) {
+		this.normalRate = normalRate;
+	}
+
+	public double getExecutiveRate() {
+		return executiveRate;
+	}
+
+	public void setExecutiveRate(double executiveRate) {
+		this.executiveRate = executiveRate;
+	}
+
+	public double getPremiumRate() {
+		return premiumRate;
+	}
+
+	public void setPremiumRate(double premiumRate) {
+		this.premiumRate = premiumRate;
 	}
 
 }

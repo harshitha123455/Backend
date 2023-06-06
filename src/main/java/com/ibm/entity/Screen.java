@@ -16,9 +16,10 @@ public class Screen {
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String name;
-	private int x;
-	private int y;
 	private int totalSeats;
+	private int normalSeats;
+	private int premiumSeats;
+	private int executiveSeats;
 
 	public int getId() {
 		return id;
@@ -36,28 +37,36 @@ public class Screen {
 		this.name = name;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
 	public int getTotalSeats() {
 		return totalSeats;
 	}
 
 	public void setTotalSeats(int totalSeats) {
 		this.totalSeats = totalSeats;
+	}
+
+	public int getNormalSeats() {
+		return normalSeats;
+	}
+
+	public void setNormalSeats(int normalSeats) {
+		this.normalSeats = normalSeats;
+	}
+
+	public int getPremiumSeats() {
+		return premiumSeats;
+	}
+
+	public void setPremiumSeats(int premiumSeats) {
+		this.premiumSeats = premiumSeats;
+	}
+
+	public int getExecutiveSeats() {
+		return executiveSeats;
+	}
+
+	public void setExecutiveSeats(int executiveSeats) {
+		this.executiveSeats = executiveSeats;
 	}
 
 }

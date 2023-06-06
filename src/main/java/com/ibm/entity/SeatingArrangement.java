@@ -16,9 +16,10 @@ public class SeatingArrangement {
 	private int id;
 	private int totalSeats;
 	private int availableSeats;
-	private int x;
-	private int y;
-	private Boolean[][] seats;
+	private int availableNormalSeats;
+	private int availablePremiumSeats;
+	private int availableExecutiveSeats;
+	private Boolean[] seats;
 
 	@OneToOne(mappedBy = "seatingArrangement")
 	private Shows shows;
@@ -47,36 +48,44 @@ public class SeatingArrangement {
 		this.availableSeats = availableSeats;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public Boolean[][] getSeats() {
-		return seats;
-	}
-
-	public void setSeats(Boolean[][] seats) {
-		this.seats = seats;
-	}
-
 	public Shows getShows() {
 		return shows;
 	}
 
 	public void setShows(Shows shows) {
 		this.shows = shows;
+	}
+
+	public int getAvailableNormalSeats() {
+		return availableNormalSeats;
+	}
+
+	public void setAvailableNormalSeats(int availableNormalSeats) {
+		this.availableNormalSeats = availableNormalSeats;
+	}
+
+	public int getAvailablePremiumSeats() {
+		return availablePremiumSeats;
+	}
+
+	public void setAvailablePremiumSeats(int availablePremiumSeats) {
+		this.availablePremiumSeats = availablePremiumSeats;
+	}
+
+	public int getAvailableExecutiveSeats() {
+		return availableExecutiveSeats;
+	}
+
+	public void setAvailableExecutiveSeats(int availableExecutiveSeats) {
+		this.availableExecutiveSeats = availableExecutiveSeats;
+	}
+
+	public Boolean[] getSeats() {
+		return seats;
+	}
+
+	public void setSeats(Boolean[] seats) {
+		this.seats = seats;
 	}
 	
 	

@@ -20,7 +20,8 @@ public class Admin {
 	@Column(length = 10)
 	private String contactNumber;
 	private String email;
-	private String password;
+	private String passwordHash;
+	private String salt;
 	public int getId() {
 		return id;
 	}
@@ -45,11 +46,17 @@ public class Admin {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 	
 	
