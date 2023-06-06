@@ -28,7 +28,7 @@ public class AdminController {
 				.body("Admin added with id: " + id);
     }
 
-    @GetMapping (path="/list", produces = "application/json")
+    @GetMapping (path="/all", produces = "application/json")
     public ResponseEntity<List<Admin>> getAllAdmins() {
     	return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
 				.body(service.list());
