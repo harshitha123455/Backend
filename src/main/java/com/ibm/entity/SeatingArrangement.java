@@ -1,5 +1,6 @@
 package com.ibm.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +10,7 @@ import javax.persistence.OneToOne;
  * Entity class which stores the seat arrangement for all shows
  */
 @Entity
-public class SeatingArrangement {
+public class SeatingArrangement{
 
 	@Id
 	@GeneratedValue
@@ -19,10 +20,21 @@ public class SeatingArrangement {
 	private int availableNormalSeats;
 	private int availablePremiumSeats;
 	private int availableExecutiveSeats;
-	private Boolean[] seats;
-
-	@OneToOne(mappedBy = "seatingArrangement")
-	private Shows shows;
+	private Boolean[] reserved;
+	
+	public SeatingArrangement() {
+		
+	}
+	
+	// deep copying
+	public SeatingArrangement(SeatingArrangement sa) {
+		this.totalSeats = sa.getTotalSeats();
+		this.availableSeats = sa.getAvailableSeats();
+		this.availableNormalSeats = sa.getAvailableNormalSeats();
+		this.availablePremiumSeats = sa.getAvailablePremiumSeats();
+		this.availableExecutiveSeats = sa.getAvailableExecutiveSeats();
+		this.reserved = new Boolean[this.totalSeats];
+	}
 
 	public int getId() {
 		return id;
@@ -46,14 +58,6 @@ public class SeatingArrangement {
 
 	public void setAvailableSeats(int availableSeats) {
 		this.availableSeats = availableSeats;
-	}
-
-	public Shows getShows() {
-		return shows;
-	}
-
-	public void setShows(Shows shows) {
-		this.shows = shows;
 	}
 
 	public int getAvailableNormalSeats() {
@@ -80,14 +84,12 @@ public class SeatingArrangement {
 		this.availableExecutiveSeats = availableExecutiveSeats;
 	}
 
-	public Boolean[] getSeats() {
-		return seats;
+	public Boolean[] getReserved() {
+		return reserved;
 	}
 
-	public void setSeats(Boolean[] seats) {
-		this.seats = seats;
+	public void setReserved(Boolean[] reserved) {
+		this.reserved = reserved;
 	}
-	
-	
 
 }

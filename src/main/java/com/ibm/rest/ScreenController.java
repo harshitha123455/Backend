@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.entity.Screen;
@@ -31,27 +30,26 @@ public class ScreenController {
 	@PostMapping(path = "/admin/screen/add", consumes = "application/json")
 	public ResponseEntity<String> addScreen(@RequestBody Screen s) throws ScreenAlreadyExistException {
 		int id = service.save(s);
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Response from", "ScreenController");
-		return ResponseEntity.accepted().headers(headers).body("Screen added with id: " + id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
+				.body("Screen added with id: " + id);
 	}
 
-//	http://localhost:8880/screen/all
-	@GetMapping(path = "/screen/all", produces = "application/json")
+//	http://localhost:8880/admin/screen/all
+	@GetMapping(path = "/admin/screen/all", produces = "application/json")
 	public ResponseEntity<List<Screen>> getAllScreens() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
 				.body(service.list());
 	}
 
-//	http://localhost:8880/screen/search/id/{id}
-	@GetMapping(path = "/screen/search/id/{id}", produces = "application/json")
+//	http://localhost:8880/admin/screen/search/id/{id}
+	@GetMapping(path = "/admin/screen/search/id/{id}", produces = "application/json")
 	public ResponseEntity<Screen> getScreenById(@PathVariable int id) throws ScreenNotFoundException {
 		Screen s = service.searchById(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController").body(s);
 	}
 
-//	http://localhost:8880/screen/search/name/{name}
-	@GetMapping(path = "/screen/search/name/{name}", produces = "application/json")
+//	http://localhost:8880/admin/screen/search/name/{name}
+	@GetMapping(path = "/admin/screen/search/name/{name}", produces = "application/json")
 	public ResponseEntity<Screen> getScreenByName(@PathVariable String name) throws ScreenNotFoundException {
 		Screen s = service.searchByName(name);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")

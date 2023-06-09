@@ -15,6 +15,6 @@ public interface ShowService {
 
 	List<Shows> searchByMovie(Movie m);
 
-	Boolean remove(int id);
+	void removeById(int id);
 
 }

@@ -1,12 +1,16 @@
 package com.ibm.entity;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * Entity class which stores details about all the shows
@@ -17,16 +21,16 @@ public class Shows {
 	@Id
 	@GeneratedValue
 	private int id;
-	private LocalDateTime dateTime;
 	@ManyToOne
 	private Movie movie;
-	@ManyToOne
-	private Screen screen;
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.ALL })
 	private SeatingArrangement seatingArrangement;
 	private double normalRate;
 	private double executiveRate;
 	private double premiumRate;
+	
+	@ElementCollection
+	List<Booking> bookings;
 
 	public int getId() {
 		return id;
@@ -36,28 +40,12 @@ public class Shows {
 		this.id = id;
 	}
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
-	}
-
 	public Movie getMovie() {
 		return movie;
 	}
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
-	}
-
-	public Screen getScreen() {
-		return screen;
-	}
-
-	public void setScreen(Screen screen) {
-		this.screen = screen;
 	}
 
 	public SeatingArrangement getSeatingArrangement() {
