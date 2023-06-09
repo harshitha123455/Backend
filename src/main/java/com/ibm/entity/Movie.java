@@ -20,7 +20,6 @@ public class Movie {
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String name;
-	
 	@ElementCollection
 	private List<String> genre;
 	@ElementCollection
