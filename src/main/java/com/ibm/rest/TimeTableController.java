@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.entity.Screen;
-import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.TimeTable;
 import com.ibm.service.TimeTableService;
 
@@ -29,18 +28,6 @@ public class TimeTableController {
 //	http://localhost:8880/admiin/timeTable/add
 	@PostMapping(path="/timeTable/add", consumes="application/json")
 	public ResponseEntity<String> addTimeTable(@RequestBody TimeTable t){
-		SeatingArrangement sa = new SeatingArrangement();
-		Screen s = t.getScreen();
-		sa.setTotalSeats(s.getTotalSeats());
-		sa.setAvailableSeats(sa.getTotalSeats());
-		sa.setAvailableNormalSeats(s.getNormalSeats());
-		sa.setAvailablePremiumSeats(s.getPremiumSeats());
-		sa.setAvailableExecutiveSeats(s.getExecutiveSeats());
-		sa.setReserved(new Boolean[s.getTotalSeats()]);
-		t.getSlot1().setSeatingArrangement(sa);
-		t.getSlot2().setSeatingArrangement(new SeatingArrangement(sa));
-		t.getSlot3().setSeatingArrangement(new SeatingArrangement(sa));
-		t.getSlot4().setSeatingArrangement(new SeatingArrangement(sa));
 		int id = service.save(t);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
 				.body("TimeTable added with id: " + id);

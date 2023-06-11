@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Screen;
+import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.TimeTable;
 import com.ibm.repo.TimeTableRepository;
 
@@ -18,6 +19,18 @@ public class TimeTableServiceImpl implements TimeTableService {
 
 	@Override
 	public int save(TimeTable t) {
+		SeatingArrangement sa = new SeatingArrangement();
+		Screen s = t.getScreen();
+		sa.setTotalSeats(s.getTotalSeats());
+		sa.setAvailableSeats(sa.getTotalSeats());
+		sa.setAvailableNormalSeats(s.getNormalSeats());
+		sa.setAvailablePremiumSeats(s.getPremiumSeats());
+		sa.setAvailableExecutiveSeats(s.getExecutiveSeats());
+		sa.setReserved(new Boolean[s.getTotalSeats()]);
+		t.getSlot1().setSeatingArrangement(sa);
+		t.getSlot2().setSeatingArrangement(new SeatingArrangement(sa));
+		t.getSlot3().setSeatingArrangement(new SeatingArrangement(sa));
+		t.getSlot4().setSeatingArrangement(new SeatingArrangement(sa));
 		repo.save(t);
 		return t.getId();
 	}
