@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ibm.service.MovieAlreadyExistException;
-import com.ibm.service.MovieNotFoundException;
-import com.ibm.service.ScreenAlreadyExistException;
-import com.ibm.service.ScreenNotFoundException;
+import com.ibm.exception.MovieAlreadyExistException;
+import com.ibm.exception.MovieNotFoundException;
+import com.ibm.exception.ScreenAlreadyExistException;
+import com.ibm.exception.ScreenNotFoundException;
+import com.ibm.exception.TimeTableAlreadyExistException;
+import com.ibm.exception.TimeTableNotFoundException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -27,17 +29,27 @@ public class ErrorHandler {
 	}
 
 	@ExceptionHandler(ScreenNotFoundException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<String> handleScreenNotFoundException(ScreenNotFoundException snfe) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Response from", "ErrorHandler")
 				.body(snfe.getMessage());
 	}
 
 	@ExceptionHandler(ScreenAlreadyExistException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<String> handleScreenAlreadyExistsException(ScreenAlreadyExistException saee) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
 				.body(saee.getMessage());
+	}
+	
+	@ExceptionHandler(TimeTableAlreadyExistException.class)
+	public ResponseEntity<String> handleTimeTableAlreadyExistsException(TimeTableAlreadyExistException ttaee) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
+				.body(ttaee.getMessage());
+	}
+	
+	@ExceptionHandler(TimeTableNotFoundException.class)
+	public ResponseEntity<String> handleTimeTableNotFoundException(TimeTableNotFoundException ttnfe) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
+				.body(ttnfe.getMessage());
 	}
 
 }
