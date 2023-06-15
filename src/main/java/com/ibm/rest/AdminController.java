@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.entity.Admin;
-import com.ibm.pojo.AdminDetails;
 import com.ibm.pojo.AdminLogin;
 import com.ibm.service.AdminService;
 
@@ -31,8 +30,8 @@ public class AdminController {
 
 //	http://localhost:8880/admin/add
 	@PostMapping(path = "/add", consumes = "application/json")
-	public ResponseEntity<String> saveAdmin(@RequestBody AdminDetails adminDetails) {
-		int id = service.save(adminDetails);
+	public ResponseEntity<String> saveAdmin(@RequestBody Admin admin) {
+		int id = service.save(admin);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController")
 				.body("Admin added with id: " + id);
 	}

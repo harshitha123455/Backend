@@ -3,11 +3,10 @@ package com.ibm.service;
 import java.util.List;
 
 import com.ibm.entity.Admin;
-import com.ibm.pojo.AdminDetails;
 
 public interface AdminService {
 
-	int save(AdminDetails ad);
+	int save(Admin ad);
 
 	List<Admin> list();
 

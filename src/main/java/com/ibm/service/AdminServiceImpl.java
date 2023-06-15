@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Admin;
-import com.ibm.pojo.AdminDetails;
 import com.ibm.repo.AdminRepository;
 import com.ibm.security.jwt.JwtUtil;
 
@@ -20,12 +19,8 @@ public class AdminServiceImpl implements AdminService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public int save(AdminDetails ad) {
-		Admin a = new Admin();
-		a.setName(ad.getName());
-		a.setContactNumber(ad.getContactNumber());
-		a.setEmail(ad.getEmail());
-		a.setPasswordHash(passwordEncoder.encode(ad.getPassword()));
+	public int save(Admin a) {
+		a.setPasswordHash(passwordEncoder.encode(a.getPassword()));
 		repo.save(a);
 		return a.getId();
 	}
