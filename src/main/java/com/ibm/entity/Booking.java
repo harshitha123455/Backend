@@ -1,9 +1,13 @@
 package com.ibm.entity;
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *Entity class used to store details about all bookings
@@ -17,12 +21,12 @@ public class Booking {
 	private int id;
 	@ManyToOne
 	private Shows shows;
-	private int xPos;
-	private int yPos;
+	@ElementCollection
+	private List<Integer> pos;
 	@ManyToOne
 	private Payment payment;
-	@ManyToOne
-	private User user;
+	@OneToMany
+	private List<User> user;
 	private String type;
 	public int getId() {
 		return id;
@@ -36,18 +40,6 @@ public class Booking {
 	public void setShows(Shows shows) {
 		this.shows = shows;
 	}
-	public int getxPos() {
-		return xPos;
-	}
-	public void setxPos(int xPos) {
-		this.xPos = xPos;
-	}
-	public int getyPos() {
-		return yPos;
-	}
-	public void setyPos(int yPos) {
-		this.yPos = yPos;
-	}
 	public Payment getPayment() {
 		return payment;
 	}
@@ -59,6 +51,12 @@ public class Booking {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public List<Integer> getPos() {
+		return pos;
+	}
+	public void setPos(List<Integer> pos) {
+		this.pos = pos;
 	}
 	
 	
