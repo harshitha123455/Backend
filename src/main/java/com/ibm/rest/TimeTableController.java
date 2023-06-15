@@ -12,54 +12,59 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ibm.entity.Screen;
 import com.ibm.entity.TimeTable;
+import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
 import com.ibm.service.TimeTableService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/admin")
 public class TimeTableController {
 
 	@Autowired
 	private TimeTableService service;
 
 //	http://localhost:8880/admiin/timeTable/add
-	@PostMapping(path = "/timeTable/add", consumes = "application/json")
+	@PostMapping(path = "/admin/timeTable/add", consumes = "application/json")
 	public ResponseEntity<String> addTimeTable(@RequestBody TimeTable t) throws TimeTableAlreadyExistException {
 		int id = service.save(t);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
 				.body("TimeTable added with id: " + id);
 	}
 
-//	http://localhost:8880/admiin/timeTable/update
-	@PutMapping(path = "/timeTable/update", consumes = "application/json")
+//	http://localhost:8880/admin/timeTable/update
+	@PutMapping(path = "/admin/timeTable/update", consumes = "application/json")
 	public ResponseEntity<String> updateTimeTable(@RequestBody TimeTable t) throws TimeTableNotFoundException {
 		int id = service.update(t);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
 				.body("TimeTable with id: " + id + " updated");
 	}
 
-//	http://localhost:8880/admin/timeTable/all
+//	http://localhost:8880/timeTable/all
 	@GetMapping(path = "/timeTable/all", produces = "application/json")
 	public ResponseEntity<List<TimeTable>> getAllTimeTable() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
 				.body(service.list());
 	}
 
-//	http://localhost:8880/admin/timeTable/search/screen
-	@PostMapping(path = "/timeTable/search/screen", produces = "application/json")
-	public ResponseEntity<List<TimeTable>> getAllTimeTableByScreen(@RequestBody Screen s) {
+//	http://localhost:8880/timeTable/search/screen/id/{id}
+	@GetMapping(path = "/timeTable/search/screen/id/{id}", produces = "application/json")
+	public ResponseEntity<List<TimeTable>> getAllTimeTableByScreenId(@PathVariable int id) throws ScreenNotFoundException {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
-				.body(service.listByScreen(s));
+				.body(service.listByScreenId(id));
+	}
+	
+//	http://localhost:8880/timeTable/search/screen/name/{name}
+	@GetMapping(path = "/timeTable/search/screen/name/{name}", produces = "application/json")
+	public ResponseEntity<List<TimeTable>> getAllTimeTableByScreenName(@PathVariable String name) throws ScreenNotFoundException {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
+				.body(service.listByScreenName(name));
 	}
 
-//	http://localhost:8880/admin/timeTable/search/id/{id}
+//	http://localhost:8880/timeTable/search/id/{id}
 	@GetMapping(path = "/timeTable/search/id/{id}", produces = "application/json")
 	public ResponseEntity<TimeTable> getTimeTable(@PathVariable int id) throws TimeTableNotFoundException {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
@@ -67,7 +72,7 @@ public class TimeTableController {
 	}
 
 //	http://localhost:8880/admin/timeTable/remove/id/{id}
-	@DeleteMapping(path = "/timeTable/remove/id/{id}")
+	@DeleteMapping(path = "/admin/timeTable/remove/id/{id}")
 	public ResponseEntity<String> removetimeTableById(@PathVariable int id) {
 		service.removeById(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
