@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.entity.Screen;
-import com.ibm.service.ScreenAlreadyExistException;
-import com.ibm.service.ScreenNotFoundException;
+import com.ibm.exception.ScreenAlreadyExistException;
+import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.service.ScreenService;
 
 @CrossOrigin
@@ -32,6 +33,14 @@ public class ScreenController {
 		int id = service.save(s);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
 				.body("Screen added with id: " + id);
+	}
+	
+//	http://localhost:8880/admin/screen/update
+	@PutMapping(path = "/admin/screen/update", consumes = "application/json")
+	public ResponseEntity<String> updateScreen(@RequestBody Screen s) throws ScreenNotFoundException, ScreenAlreadyExistException {
+		int id = service.update(s);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ScreenController")
+				.body("Screen with id: " + id + " updated");
 	}
 
 //	http://localhost:8880/admin/screen/all

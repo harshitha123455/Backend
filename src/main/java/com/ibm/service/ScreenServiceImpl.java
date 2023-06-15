@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Screen;
+import com.ibm.exception.ScreenAlreadyExistException;
+import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.repo.ScreenRepository;
 
 @Service
@@ -17,9 +19,16 @@ public class ScreenServiceImpl implements ScreenService {
 	@Override
 	public int save(Screen s) throws ScreenAlreadyExistException {
 		Screen s1 = repo.findByName(s.getName());
-		if (s1 != null)
+		if (s1 !=null && s1.getId() != s.getId()) // if screen is in db and their id's do not match   
 			throw new ScreenAlreadyExistException(s1.getName());
 		repo.save(s);
+		return s.getId();
+	}
+
+	@Override
+	public int update(Screen s) throws ScreenNotFoundException, ScreenAlreadyExistException {
+		searchById(s.getId()); // check whether the screen exists
+		save(s);
 		return s.getId();
 	}
 
