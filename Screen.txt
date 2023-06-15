@@ -1,0 +1,7 @@
+   {
+        "name": "Screen 1",
+        "totalSeats":100,
+        "normalSeats": 60,
+        "premiumSeats": 20,
+        "executiveSeats": 20
+    }

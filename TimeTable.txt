@@ -1,0 +1,176 @@
+{
+    "date": "2023-06-09",
+    "screen": {
+        "id": 5,
+        "name": "Screen 1",
+        "totalSeats": 100,
+        "normalSeats": 60,
+        "premiumSeats": 20,
+        "executiveSeats": 20
+    },
+    "slot1": {
+        "movie": {
+            "id": 2,
+            "name": "Avatar",
+            "genre": [
+                "Sci-fi",
+                "Action"
+            ],
+            "reviews": [],
+            "releaseDate": "2009-12-18",
+            "cast": [
+                "Zoe Saldana",
+                "Sam Worthington",
+                "Sigourney Weaver",
+                "Michelle Rodriguez",
+                "Joel David Moore",
+                "Laz Alonso",
+                "Stephen Lang",
+                "Giovanni Ribisi",
+                "CCH Pounder",
+                "Wes Studi",
+                "Matt Gerald",
+                "Peter Mensah",
+                "Dileep Rao",
+                "Peter Dillon",
+                "Scott Lawrence",
+                "Sean Anthony Moran",
+                "Kyla Warren",
+                "kevin Dorman",
+                "Julene Renee",
+                "Jacob Tomuri",
+                "Luke Hawker",
+                "Sean Patrick Murphy",
+                "Woody Schultz",
+                "David Van Horn"
+            ]
+        },
+        "normalRate": 100,
+        "executiveRate": 200,
+        "premiumRate": 300
+    },
+    "slot2": {
+        "movie": {
+            "id": 2,
+            "name": "Avatar",
+            "genre": [
+                "Sci-fi",
+                "Action"
+            ],
+            "reviews": [],
+            "releaseDate": "2009-12-18",
+            "cast": [
+                "Zoe Saldana",
+                "Sam Worthington",
+                "Sigourney Weaver",
+                "Michelle Rodriguez",
+                "Joel David Moore",
+                "Laz Alonso",
+                "Stephen Lang",
+                "Giovanni Ribisi",
+                "CCH Pounder",
+                "Wes Studi",
+                "Matt Gerald",
+                "Peter Mensah",
+                "Dileep Rao",
+                "Peter Dillon",
+                "Scott Lawrence",
+                "Sean Anthony Moran",
+                "Kyla Warren",
+                "kevin Dorman",
+                "Julene Renee",
+                "Jacob Tomuri",
+                "Luke Hawker",
+                "Sean Patrick Murphy",
+                "Woody Schultz",
+                "David Van Horn"
+            ]
+        },
+        "normalRate": 100,
+        "executiveRate": 200,
+        "premiumRate": 300
+    },
+    "slot3": {
+        "movie": {
+            "id": 2,
+            "name": "Avatar",
+            "genre": [
+                "Sci-fi",
+                "Action"
+            ],
+            "reviews": [],
+            "releaseDate": "2009-12-18",
+            "cast": [
+                "Zoe Saldana",
+                "Sam Worthington",
+                "Sigourney Weaver",
+                "Michelle Rodriguez",
+                "Joel David Moore",
+                "Laz Alonso",
+                "Stephen Lang",
+                "Giovanni Ribisi",
+                "CCH Pounder",
+                "Wes Studi",
+                "Matt Gerald",
+                "Peter Mensah",
+                "Dileep Rao",
+                "Peter Dillon",
+                "Scott Lawrence",
+                "Sean Anthony Moran",
+                "Kyla Warren",
+                "kevin Dorman",
+                "Julene Renee",
+                "Jacob Tomuri",
+                "Luke Hawker",
+                "Sean Patrick Murphy",
+                "Woody Schultz",
+                "David Van Horn"
+            ]
+        },
+        "normalRate": 100,
+        "executiveRate": 200,
+        "premiumRate": 300
+    },
+    "slot4": {
+        "movie": {
+            "id": 2,
+            "name": "Avatar",
+            "genre": [
+                "Sci-fi",
+                "Action"
+            ],
+            "reviews": [],
+            "releaseDate": "2009-12-18",
+            "cast": [
+                "Zoe Saldana",
+                "Sam Worthington",
+                "Sigourney Weaver",
+                "Michelle Rodriguez",
+                "Joel David Moore",
+                "Laz Alonso",
+                "Stephen Lang",
+                "Giovanni Ribisi",
+                "CCH Pounder",
+                "Wes Studi",
+                "Matt Gerald",
+                "Peter Mensah",
+                "Dileep Rao",
+                "Peter Dillon",
+                "Scott Lawrence",
+                "Sean Anthony Moran",
+                "Kyla Warren",
+                "kevin Dorman",
+                "Julene Renee",
+                "Jacob Tomuri",
+                "Luke Hawker",
+                "Sean Patrick Murphy",
+                "Woody Schultz",
+                "David Van Horn"
+            ]
+        },
+        "normalRate": 100,
+        "executiveRate": 200,
+        "premiumRate": 300
+    }
+}
+

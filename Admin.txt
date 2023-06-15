@@ -1,0 +1,6 @@
+{
+    "name": "Admin",
+    "contactNumber": "9876543210",
+    "email": "admin@gmail.com",
+    "password": "password"
+}
