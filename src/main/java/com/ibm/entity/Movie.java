@@ -1,6 +1,7 @@
 package com.ibm.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,6 +21,9 @@ public class Movie {
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String name;
+	private LocalTime duration;
+	@ElementCollection
+	private List<String> director;
 	@ElementCollection
 	private List<String> genre;
 	@ElementCollection
@@ -74,6 +78,22 @@ public class Movie {
 
 	public void setCast(List<String> cast) {
 		this.cast = cast;
+	}
+
+	public LocalTime getDuration() {
+		return duration;
+	}
+
+	public void setDuration(LocalTime duration) {
+		this.duration = duration;
+	}
+
+	public List<String> getDirector() {
+		return director;
+	}
+
+	public void setDirector(List<String> director) {
+		this.director = director;
 	}
 
 }
