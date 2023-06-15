@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Movie;
+import com.ibm.exception.MovieAlreadyExistException;
+import com.ibm.exception.MovieNotFoundException;
 import com.ibm.repo.MovieRepository;
 
 @Service
@@ -17,9 +19,16 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public int save(Movie m) throws MovieAlreadyExistException {
 		Movie m1 = repo.findByName(m.getName());
-		if (m1 != null)
+		if (m1 !=null && m1.getId() != m.getId()) // if movie is in db and their id's do not match   
 			throw new MovieAlreadyExistException(m1.getName());
 		repo.save(m);
+		return m.getId();
+	}
+	
+	@Override
+	public int update(Movie m) throws MovieNotFoundException, MovieAlreadyExistException {
+		searchById(m.getId()); // check whether the movie exists
+		save(m);
 		return m.getId();
 	}
 

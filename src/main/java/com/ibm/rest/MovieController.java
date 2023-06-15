@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.entity.Movie;
-import com.ibm.service.MovieAlreadyExistException;
-import com.ibm.service.MovieNotFoundException;
+import com.ibm.exception.MovieAlreadyExistException;
+import com.ibm.exception.MovieNotFoundException;
 import com.ibm.service.MovieService;
 
 @CrossOrigin
@@ -31,6 +32,14 @@ public class MovieController {
 		int id = service.save(m);
         return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
 				.body("Movie added with id: " + id);
+	}
+	
+//	http://localhost:8880/admin/movie/update
+	@PutMapping(path = "/admin/movie/update", consumes = "application/json")
+	public ResponseEntity<String> updateMovie(@RequestBody Movie m) throws MovieNotFoundException, MovieAlreadyExistException {
+		int id = service.update(m);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
+				.body("Movie with id: " + id + " updated");
 	}
 
 //	http://localhost:8880/movie/all	

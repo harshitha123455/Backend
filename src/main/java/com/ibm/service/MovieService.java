@@ -3,10 +3,14 @@ package com.ibm.service;
 import java.util.List;
 
 import com.ibm.entity.Movie;
+import com.ibm.exception.MovieAlreadyExistException;
+import com.ibm.exception.MovieNotFoundException;
 
 public interface MovieService {
 
 	int save(Movie m) throws MovieAlreadyExistException;
+	
+	int update(Movie m) throws MovieNotFoundException, MovieAlreadyExistException;
 
 	List<Movie> list();
 
