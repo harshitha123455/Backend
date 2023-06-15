@@ -1,10 +1,10 @@
 package com.ibm.pojo;
 
-public class ErrorResponse {
+public class Response {
 	
 	private String message;
 	
-	public ErrorResponse(String message) {
+	public Response(String message) {
 		this.setMessage(message);
 	}
 

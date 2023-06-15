@@ -11,45 +11,45 @@ import com.ibm.exception.ScreenAlreadyExistException;
 import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
-import com.ibm.pojo.ErrorResponse;
+import com.ibm.pojo.Response;
 
 @RestControllerAdvice
 public class ErrorHandler {
 
 	@ExceptionHandler(MovieNotFoundException.class)
-	public ResponseEntity<String> handleMovieNotFoundException(MovieNotFoundException mnfe) {
+	public ResponseEntity<Response> handleMovieNotFoundException(MovieNotFoundException mnfe) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Response from", "ErrorHandler")
-				.body(mnfe.getMessage());
+				.body(new Response(mnfe.getMessage()));
 	}
 
 	@ExceptionHandler(MovieAlreadyExistException.class)
-	public ResponseEntity<ErrorResponse> handleMovieAlreadyExistsException(MovieAlreadyExistException maee) {
+	public ResponseEntity<Response> handleMovieAlreadyExistsException(MovieAlreadyExistException maee) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
-				.body(new ErrorResponse(maee.getMessage()));
+				.body(new Response(maee.getMessage()));
 	}
 
 	@ExceptionHandler(ScreenNotFoundException.class)
-	public ResponseEntity<String> handleScreenNotFoundException(ScreenNotFoundException snfe) {
+	public ResponseEntity<Response> handleScreenNotFoundException(ScreenNotFoundException snfe) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Response from", "ErrorHandler")
-				.body(snfe.getMessage());
+				.body(new Response(snfe.getMessage()));
 	}
 
 	@ExceptionHandler(ScreenAlreadyExistException.class)
-	public ResponseEntity<String> handleScreenAlreadyExistsException(ScreenAlreadyExistException saee) {
+	public ResponseEntity<Response> handleScreenAlreadyExistsException(ScreenAlreadyExistException saee) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
-				.body(saee.getMessage());
+				.body(new Response(saee.getMessage()));
 	}
 	
 	@ExceptionHandler(TimeTableAlreadyExistException.class)
-	public ResponseEntity<String> handleTimeTableAlreadyExistsException(TimeTableAlreadyExistException ttaee) {
+	public ResponseEntity<Response> handleTimeTableAlreadyExistsException(TimeTableAlreadyExistException ttaee) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
-				.body(ttaee.getMessage());
+				.body(new Response(ttaee.getMessage()));
 	}
 	
 	@ExceptionHandler(TimeTableNotFoundException.class)
-	public ResponseEntity<String> handleTimeTableNotFoundException(TimeTableNotFoundException ttnfe) {
+	public ResponseEntity<Response> handleTimeTableNotFoundException(TimeTableNotFoundException ttnfe) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
-				.body(ttnfe.getMessage());
+				.body(new Response(ttnfe.getMessage()));
 	}
 
 }
