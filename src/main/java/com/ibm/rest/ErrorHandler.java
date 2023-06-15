@@ -3,7 +3,6 @@ package com.ibm.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ibm.exception.MovieAlreadyExistException;
@@ -12,6 +11,7 @@ import com.ibm.exception.ScreenAlreadyExistException;
 import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
+import com.ibm.pojo.ErrorResponse;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -23,9 +23,9 @@ public class ErrorHandler {
 	}
 
 	@ExceptionHandler(MovieAlreadyExistException.class)
-	public ResponseEntity<String> handleMovieAlreadyExistsException(MovieAlreadyExistException maee) {
+	public ResponseEntity<ErrorResponse> handleMovieAlreadyExistsException(MovieAlreadyExistException maee) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
-				.body(maee.getMessage());
+				.body(new ErrorResponse(maee.getMessage()));
 	}
 
 	@ExceptionHandler(ScreenNotFoundException.class)
