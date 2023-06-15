@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ibm.entity.Screen;
 import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.TimeTable;
+import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
 import com.ibm.repo.TimeTableRepository;
@@ -18,6 +19,9 @@ public class TimeTableServiceImpl implements TimeTableService {
 
 	@Autowired
 	private TimeTableRepository repo;
+	
+	@Autowired
+	private ScreenService service;
 
 	@Override
 	public int save(TimeTable t) throws TimeTableAlreadyExistException {
@@ -54,8 +58,13 @@ public class TimeTableServiceImpl implements TimeTableService {
 	}
 
 	@Override
-	public List<TimeTable> listByScreen(Screen s) {
-		return repo.findAllByScreen(s);
+	public List<TimeTable> listByScreenId(int id) throws ScreenNotFoundException {
+		return repo.findAllByScreen(service.searchById(id));
+	}
+	
+	@Override
+	public List<TimeTable> listByScreenName(String name) throws ScreenNotFoundException {
+		return repo.findAllByScreen(service.searchByName(name));
 	}
 
 	@Override
