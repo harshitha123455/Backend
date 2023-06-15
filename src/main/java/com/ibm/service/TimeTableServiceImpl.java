@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.ibm.entity.Screen;
 import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.TimeTable;
+import com.ibm.exception.TimeTableAlreadyExistException;
+import com.ibm.exception.TimeTableNotFoundException;
 import com.ibm.repo.TimeTableRepository;
 
 @Service
@@ -18,7 +20,11 @@ public class TimeTableServiceImpl implements TimeTableService {
 	private TimeTableRepository repo;
 
 	@Override
-	public int save(TimeTable t) {
+	public int save(TimeTable t) throws TimeTableAlreadyExistException {
+		if (repo.findByDateAndScreen(t.getDate(), t.getScreen()) != null)
+			throw new TimeTableAlreadyExistException(
+					"Timetable for " + t.getScreen().getName() + " already exists on " + t.getDate());
+
 		SeatingArrangement sa = new SeatingArrangement();
 		Screen s = t.getScreen();
 		sa.setTotalSeats(s.getTotalSeats());
@@ -31,6 +37,13 @@ public class TimeTableServiceImpl implements TimeTableService {
 		t.getSlot2().setSeatingArrangement(new SeatingArrangement(sa));
 		t.getSlot3().setSeatingArrangement(new SeatingArrangement(sa));
 		t.getSlot4().setSeatingArrangement(new SeatingArrangement(sa));
+		repo.save(t);
+		return t.getId();
+	}
+	
+	@Override
+	public int update(TimeTable t) throws TimeTableNotFoundException {
+		searchById(t.getId()); // check whether the timetable exists
 		repo.save(t);
 		return t.getId();
 	}
@@ -57,8 +70,14 @@ public class TimeTableServiceImpl implements TimeTableService {
 	}
 
 	@Override
-	public TimeTable searchById(int id) {
-		return repo.findById(id).get();
+	public TimeTable searchById(int id) throws TimeTableNotFoundException {
+		TimeTable t;
+		try {
+			t = repo.findById(id).get();
+		} catch (Exception e) {
+			throw new TimeTableNotFoundException(id);
+		}
+		return t;
 	}
 
 }

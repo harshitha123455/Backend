@@ -13,5 +13,7 @@ public interface TimeTableRepository extends JpaRepository<TimeTable, Integer> {
 	List<TimeTable> findAllByScreen(Screen s);
 	
 	List<TimeTable> findAllByDate(Date date);
+	
+	TimeTable findByDateAndScreen(Date date, Screen screen);
 
 }

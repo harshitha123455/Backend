@@ -5,12 +5,16 @@ import java.util.List;
 
 import com.ibm.entity.Screen;
 import com.ibm.entity.TimeTable;
+import com.ibm.exception.TimeTableAlreadyExistException;
+import com.ibm.exception.TimeTableNotFoundException;
 
 public interface TimeTableService {
 	
-	int save(TimeTable t);
+	int save(TimeTable t) throws TimeTableAlreadyExistException;
 	
-	TimeTable searchById(int id);
+	int update(TimeTable t) throws TimeTableNotFoundException;
+	
+	TimeTable searchById(int id) throws TimeTableNotFoundException;
 	
 	List<TimeTable> list();
 	
