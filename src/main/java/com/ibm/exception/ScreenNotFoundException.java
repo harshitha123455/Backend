@@ -1,4 +1,4 @@
-package com.ibm.service;
+package com.ibm.exception;
 
 public class ScreenNotFoundException extends Exception {
 
