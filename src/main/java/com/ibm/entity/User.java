@@ -22,6 +22,7 @@ public class User {
 	private String name;
 	@Column(length = 10)
 	private String contactNumber;
+	private String email;
 	@OneToMany
 	@ElementCollection
 	List<Booking> bookings;
@@ -48,6 +49,12 @@ public class User {
 	}
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
