@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ibm.entity.Movie;
 import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.Shows;
+import com.ibm.exception.MovieNotFoundException;
 import com.ibm.repo.SeatingArrangementRepository;
 import com.ibm.repo.ShowRepository;
 
@@ -15,32 +16,40 @@ import com.ibm.repo.ShowRepository;
 public class ShowServiceImpl implements ShowService {
 	
 	@Autowired
-	private ShowRepository showRepo;
+	private ShowRepository repo;
+	
+	@Autowired
+	private MovieService service;
 
 	@Override
 	public int save(Shows s) {
-		showRepo.save(s);
+		repo.save(s);
 		return s.getId();
 	}
 
 	@Override
 	public List<Shows> list() {
-		return showRepo.findAll();
+		return repo.findAll();
 	}
 
 	@Override
 	public Shows searchById(int id) {
-		return showRepo.findById(id).get();
+		return repo.findById(id).get();
 	}
 
 	@Override
-	public List<Shows> searchByMovie(Movie m) {
-		return showRepo.findAllByMovie(m);
+	public List<Shows> searchByMovieId(int id) throws MovieNotFoundException {
+		 return repo.findAllByMovie(service.searchById(id));
+	}
+	
+	@Override
+	public List<Shows> searchByMovieName(String name) throws MovieNotFoundException {
+		return repo.findAllByMovie(service.searchByName(name));
 	}
 
 	@Override
 	public void removeById(int id) {
-		showRepo.deleteById(id);
+		repo.deleteById(id);
 	}
 
 }

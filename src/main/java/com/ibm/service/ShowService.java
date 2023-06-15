@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ibm.entity.Movie;
 import com.ibm.entity.Shows;
+import com.ibm.exception.MovieNotFoundException;
 
 public interface ShowService {
 
@@ -13,7 +14,9 @@ public interface ShowService {
 
 	Shows searchById(int id);
 
-	List<Shows> searchByMovie(Movie m);
+	List<Shows> searchByMovieId(int id) throws MovieNotFoundException;
+	
+	List<Shows> searchByMovieName(String name) throws MovieNotFoundException;
 
 	void removeById(int id);
 
