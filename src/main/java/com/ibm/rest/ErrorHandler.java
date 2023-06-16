@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.ibm.exception.BookingNotFoundException;
 import com.ibm.exception.MovieAlreadyExistException;
 import com.ibm.exception.MovieNotFoundException;
 import com.ibm.exception.ScreenAlreadyExistException;
@@ -50,6 +51,12 @@ public class ErrorHandler {
 	public ResponseEntity<Response> handleTimeTableNotFoundException(TimeTableNotFoundException ttnfe) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
 				.body(new Response(ttnfe.getMessage()));
+	}
+	
+	@ExceptionHandler(BookingNotFoundException.class)
+	public ResponseEntity<Response> handleBookingNotFoundException(BookingNotFoundException bnfe) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
+				.body(new Response(bnfe.getMessage()));
 	}
 
 }
