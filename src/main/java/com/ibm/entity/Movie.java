@@ -27,7 +27,7 @@ public class Movie {
 	@ElementCollection
 	private List<String> genre;
 	@ElementCollection
-	private List<String> reviews;
+	private List<String> description;
 	private LocalDate releaseDate;
 	@ElementCollection
 	private List<String> cast;
@@ -56,12 +56,12 @@ public class Movie {
 		this.genre = genre;
 	}
 
-	public List<String> getReviews() {
-		return reviews;
+	public List<String> getDescription() {
+		return description;
 	}
 
-	public void setReviews(List<String> reviews) {
-		this.reviews = reviews;
+	public void setDescription(List<String> reviews) {
+		this.description = reviews;
 	}
 
 	public LocalDate getReleaseDate() {
