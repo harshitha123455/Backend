@@ -52,27 +52,10 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public int update(Movie m, MultipartFile image) throws MovieNotFoundException {
+	public int update(Movie m) throws MovieNotFoundException {
 		searchById(m.getId()); // check whether the movie exists
-		// Process the image file
-		try {
-			String fileExtension = StringUtils.getFilenameExtension(image.getOriginalFilename());
-			// Generate the file name based on the movie name
-			String fileName = convertToLegalFilename(m.getName()) + "." + fileExtension;
-
-			// Create the directory if it doesn't exist
-			Files.createDirectories(Path.of(uploadDir));
-
-			// Save the image file to the target directory
-			Path filePath = Path.of(uploadDir, fileName);
-			Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			System.err.println(imageBaseUrl + filePath.toString());
-			m.setImageUrl(imageBaseUrl + filePath.toString().replace("\\", "/"));
-			repo.save(m);
-			return m.getId();
-		} catch (IOException e) {
-			return -1;
-		}
+		repo.save(m);
+		return m.getId();
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public interface MovieService {
 
 	int save(Movie m, MultipartFile image) throws MovieAlreadyExistException;
 	
-	int update(Movie m, MultipartFile image) throws MovieNotFoundException;
+	int update(Movie m) throws MovieNotFoundException;
 
 	List<Movie> list();
 
