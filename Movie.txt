@@ -1,9 +1,9 @@
-   {
+ {
     "name": "Avatar",
     "duration": "02:42",
     "director": ["James Cameron"],
     "genre": ["Sci-fi", "Action"],
-    "reviews":[],
+    "description":"A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
     "releaseDate": "2009-12-18",
     "cast": ["Zoe Saldana", "Sam Worthington", "Sigourney Weaver", "Michelle Rodriguez", "Joel David Moore", "Laz Alonso", "Stephen Lang", "Giovanni Ribisi", "CCH Pounder", "Wes Studi", "Matt Gerald", "Peter Mensah", "Dileep Rao", "Peter Dillon", "Scott Lawrence", "Sean Anthony Moran", "Kyla Warren", "kevin Dorman", "Julene Renee", "Jacob Tomuri", "Luke Hawker", "Sean Patrick Murphy", "Woody Schultz", "David Van Horn"]
     }
@@ -13,7 +13,7 @@
     "duration": "03:12",
     "director": ["James Cameron"],
     "genre": ["Sci-fi", "Action"],
-    "reviews":[],
+    "description":"Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race to protect their home.",
     "releaseDate": "2022-12-16",
     "cast": ["Zoe Saldana", "Sam Worthington", "Sigourney Weaver", "Joel David Moore", "Laz Alonso", "Stephen E. Rivkin", "CCH Pounder", "Wes Studi", "Matt Gerald","Scarlett Fernandez", "Filip Geljo", "Jamie Flatters", "Edie Falco"]
     }
@@ -22,7 +22,7 @@
     "duration": "03:02",
     "director": ["Anthony Russo", "Joe Russo"],
     "genre": ["Sci-fi", "Action"],
-    "reviews":[],
+    "description":"After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
     "releaseDate": "2019-04-26",
     "cast": ["Robert Downey Jr.", "Chris Evans", "Chris Hemswortg", "Mark Ruffalo", "Scarlet Johansson", "Jeremy Renner", "Brie Larson", "Paul Rudd", "Don Cheadle", "Elizabeth Olsen", "Chadwick Boseman", "Tom Holland", "Josh Brolin", "Chris Pratt", "Benedict Cumberbatch", "Samuel L. Jackson"]
     }
