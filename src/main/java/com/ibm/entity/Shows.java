@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 /**
  * Entity class which stores details about all the shows
  */

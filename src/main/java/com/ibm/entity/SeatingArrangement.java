@@ -1,10 +1,8 @@
 package com.ibm.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 /**
  * Entity class which stores the seat arrangement for all shows

@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ibm.entity.Movie;
-import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.Shows;
 import com.ibm.exception.MovieNotFoundException;
-import com.ibm.repo.SeatingArrangementRepository;
 import com.ibm.repo.ShowRepository;
 
 @Service

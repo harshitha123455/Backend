@@ -2,7 +2,6 @@ package com.ibm.service;
 
 import java.util.List;
 
-import com.ibm.entity.Movie;
 import com.ibm.entity.Shows;
 import com.ibm.exception.MovieNotFoundException;
 
