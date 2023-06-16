@@ -12,11 +12,15 @@
         "movie": {
             "id": 2,
             "name": "Avatar",
+            "duration": "02:42:00",
+            "director": [
+                "James Cameron"
+            ],
             "genre": [
                 "Sci-fi",
                 "Action"
             ],
-            "reviews": [],
+            "description": "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
             "releaseDate": "2009-12-18",
             "cast": [
                 "Zoe Saldana",
@@ -43,7 +47,8 @@
                 "Sean Patrick Murphy",
                 "Woody Schultz",
                 "David Van Horn"
-            ]
+            ],
+            "imageUrl": "http://localhost:8880/images/avatar.jpg"
         },
         "normalRate": 100,
         "executiveRate": 200,
@@ -51,40 +56,34 @@
     },
     "slot2": {
         "movie": {
-            "id": 2,
-            "name": "Avatar",
+            "id": 3,
+            "name": "Avatar: The Way of Water",
+            "duration": "03:12:00",
+            "director": [
+                "James Cameron"
+            ],
             "genre": [
                 "Sci-fi",
                 "Action"
             ],
-            "reviews": [],
-            "releaseDate": "2009-12-18",
+            "description": "Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race to protect their home.",
+            "releaseDate": "2022-12-16",
             "cast": [
                 "Zoe Saldana",
                 "Sam Worthington",
                 "Sigourney Weaver",
-                "Michelle Rodriguez",
                 "Joel David Moore",
                 "Laz Alonso",
-                "Stephen Lang",
-                "Giovanni Ribisi",
+                "Stephen E. Rivkin",
                 "CCH Pounder",
                 "Wes Studi",
                 "Matt Gerald",
-                "Peter Mensah",
-                "Dileep Rao",
-                "Peter Dillon",
-                "Scott Lawrence",
-                "Sean Anthony Moran",
-                "Kyla Warren",
-                "kevin Dorman",
-                "Julene Renee",
-                "Jacob Tomuri",
-                "Luke Hawker",
-                "Sean Patrick Murphy",
-                "Woody Schultz",
-                "David Van Horn"
-            ]
+                "Scarlett Fernandez",
+                "Filip Geljo",
+                "Jamie Flatters",
+                "Edie Falco"
+            ],
+            "imageUrl": "http://localhost:8880/images/avatar_the way of water.jpg"
         },
         "normalRate": 100,
         "executiveRate": 200,
@@ -92,40 +91,38 @@
     },
     "slot3": {
         "movie": {
-            "id": 2,
-            "name": "Avatar",
+            "id": 4,
+            "name": "Avengers: Endgame",
+            "duration": "03:02:00",
+            "director": [
+                "Anthony Russo",
+                "Joe Russo"
+            ],
             "genre": [
                 "Sci-fi",
                 "Action"
             ],
-            "reviews": [],
-            "releaseDate": "2009-12-18",
+            "description": "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
+            "releaseDate": "2019-04-26",
             "cast": [
-                "Zoe Saldana",
-                "Sam Worthington",
-                "Sigourney Weaver",
-                "Michelle Rodriguez",
-                "Joel David Moore",
-                "Laz Alonso",
-                "Stephen Lang",
-                "Giovanni Ribisi",
-                "CCH Pounder",
-                "Wes Studi",
-                "Matt Gerald",
-                "Peter Mensah",
-                "Dileep Rao",
-                "Peter Dillon",
-                "Scott Lawrence",
-                "Sean Anthony Moran",
-                "Kyla Warren",
-                "kevin Dorman",
-                "Julene Renee",
-                "Jacob Tomuri",
-                "Luke Hawker",
-                "Sean Patrick Murphy",
-                "Woody Schultz",
-                "David Van Horn"
-            ]
+                "Robert Downey Jr.",
+                "Chris Evans",
+                "Chris Hemswortg",
+                "Mark Ruffalo",
+                "Scarlet Johansson",
+                "Jeremy Renner",
+                "Brie Larson",
+                "Paul Rudd",
+                "Don Cheadle",
+                "Elizabeth Olsen",
+                "Chadwick Boseman",
+                "Tom Holland",
+                "Josh Brolin",
+                "Chris Pratt",
+                "Benedict Cumberbatch",
+                "Samuel L. Jackson"
+            ],
+            "imageUrl": "http://localhost:8880/images/avengers_endgame.jpg"
         },
         "normalRate": 100,
         "executiveRate": 200,
@@ -135,11 +132,15 @@
         "movie": {
             "id": 2,
             "name": "Avatar",
+            "duration": "02:42:00",
+            "director": [
+                "James Cameron"
+            ],
             "genre": [
                 "Sci-fi",
                 "Action"
             ],
-            "reviews": [],
+            "description": "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
             "releaseDate": "2009-12-18",
             "cast": [
                 "Zoe Saldana",
@@ -166,11 +167,11 @@
                 "Sean Patrick Murphy",
                 "Woody Schultz",
                 "David Van Horn"
-            ]
+            ],
+            "imageUrl": "http://localhost:8880/images/avatar.jpg"
         },
         "normalRate": 100,
         "executiveRate": 200,
         "premiumRate": 300
     }
 }
-
