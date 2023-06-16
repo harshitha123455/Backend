@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ibm.exception.BookingNotFoundException;
 import com.ibm.exception.MovieAlreadyExistException;
 import com.ibm.exception.MovieNotFoundException;
@@ -57,6 +59,18 @@ public class ErrorHandler {
 	public ResponseEntity<Response> handleBookingNotFoundException(BookingNotFoundException bnfe) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
 				.body(new Response(bnfe.getMessage()));
+	}
+	
+	@ExceptionHandler(JsonMappingException.class)
+	public ResponseEntity<Response> handleJsonMappingException(JsonMappingException jme) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
+				.body(new Response(jme.getMessage()));
+	}
+	
+	@ExceptionHandler(JsonProcessingException.class)
+	public ResponseEntity<Response> handleJsonProcessingException(JsonProcessingException jpe) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).header("Response from", "ErrorHandler")
+				.body(new Response(jpe.getMessage()));
 	}
 
 }

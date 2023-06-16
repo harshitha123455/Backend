@@ -30,6 +30,7 @@ public class Movie {
 	private LocalDate releaseDate;
 	@ElementCollection
 	private List<String> cast;
+	private String imageUrl;
 
 	public int getId() {
 		return id;
@@ -94,5 +95,15 @@ public class Movie {
 	public void setDirector(List<String> director) {
 		this.director = director;
 	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
 
 }
