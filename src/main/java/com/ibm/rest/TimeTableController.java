@@ -18,6 +18,7 @@ import com.ibm.entity.TimeTable;
 import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
+import com.ibm.pojo.TimeTableRequest;
 import com.ibm.service.TimeTableService;
 
 @CrossOrigin
@@ -55,6 +56,12 @@ public class TimeTableController {
 	public ResponseEntity<List<TimeTable>> getAllTimeTableByScreenId(@PathVariable int id) throws ScreenNotFoundException {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
 				.body(service.listByScreenId(id));
+	}
+//	http://localhost:8880/timeTable/search/dateAndScreen
+	@PostMapping(path = "/timeTable/search/dateAndScreen", consumes="application/json", produces = "application/json")
+	public ResponseEntity<TimeTable> getTimeTableByDateAndScreenId(@RequestBody TimeTableRequest ttr) throws ScreenNotFoundException, TimeTableNotFoundException {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
+				.body(service.searchByDateAndScreen(ttr));
 	}
 	
 //	http://localhost:8880/timeTable/search/screen/name/{name}

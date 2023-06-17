@@ -7,6 +7,7 @@ import com.ibm.entity.TimeTable;
 import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
+import com.ibm.pojo.TimeTableRequest;
 
 public interface TimeTableService {
 
@@ -15,6 +16,8 @@ public interface TimeTableService {
 	int update(TimeTable t) throws TimeTableNotFoundException;
 
 	TimeTable searchById(int id) throws TimeTableNotFoundException;
+	
+	TimeTable searchByDateAndScreen(TimeTableRequest ttr) throws ScreenNotFoundException, TimeTableNotFoundException;
 
 	List<TimeTable> list();
 

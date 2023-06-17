@@ -12,6 +12,7 @@ import com.ibm.entity.TimeTable;
 import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
 import com.ibm.exception.TimeTableNotFoundException;
+import com.ibm.pojo.TimeTableRequest;
 import com.ibm.repo.TimeTableRepository;
 
 @Service
@@ -86,6 +87,14 @@ public class TimeTableServiceImpl implements TimeTableService {
 		} catch (Exception e) {
 			throw new TimeTableNotFoundException(id);
 		}
+		return t;
+	}
+
+	@Override
+	public TimeTable searchByDateAndScreen(TimeTableRequest ttr) throws ScreenNotFoundException, TimeTableNotFoundException {
+		TimeTable t = repo.findByDateAndScreen(ttr.getDate(), service.searchById(ttr.getSid()));
+		if (t == null)
+			throw new TimeTableNotFoundException("No Timetable found for screen: " + service.searchById(ttr.getSid()).getName() + " on " + ttr.getDate());
 		return t;
 	}
 
