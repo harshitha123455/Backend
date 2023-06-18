@@ -31,7 +31,7 @@ public class MovieHighlightController {
 //	http://localhost:8880/admin/highlight/set
 	@PostMapping(path = "/admin/highlight/set", consumes = "multipart/form-data")
 	public ResponseEntity<String> setHighlight(@RequestParam("image") MultipartFile image,
-			@RequestParam("id") int id) throws MovieNotFoundException {
+	        @RequestParam("id") int id) throws MovieNotFoundException {
 		// Validate the image file
 		if (image.isEmpty()) {
 			// Handle empty file error

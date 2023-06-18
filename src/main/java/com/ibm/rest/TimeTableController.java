@@ -28,7 +28,7 @@ public class TimeTableController {
 	@Autowired
 	private TimeTableService service;
 
-//	http://localhost:8880/admiin/timeTable/add
+//	http://localhost:8880/admin/timeTable/add
 	@PostMapping(path = "/admin/timeTable/add", consumes = "application/json")
 	public ResponseEntity<String> addTimeTable(@RequestBody TimeTable t) throws TimeTableAlreadyExistException {
 		int id = service.save(t);
