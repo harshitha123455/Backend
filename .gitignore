@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 images/
+highlight/
 
 ### STS ###
 .apt_generated
