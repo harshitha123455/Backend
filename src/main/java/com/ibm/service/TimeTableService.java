@@ -18,6 +18,8 @@ public interface TimeTableService {
 	TimeTable searchById(int id) throws TimeTableNotFoundException;
 	
 	TimeTable searchByDateAndScreen(TimeTableRequest ttr) throws ScreenNotFoundException, TimeTableNotFoundException;
+	
+	TimeTable searchByShow(int id);
 
 	List<TimeTable> list();
 

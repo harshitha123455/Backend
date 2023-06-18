@@ -26,6 +26,7 @@ public class Shows {
 	private double normalRate;
 	private double executiveRate;
 	private double premiumRate;
+	private String time;
 	
 	@ElementCollection
 	List<Booking> bookings;
@@ -76,6 +77,14 @@ public class Shows {
 
 	public void setPremiumRate(double premiumRate) {
 		this.premiumRate = premiumRate;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }

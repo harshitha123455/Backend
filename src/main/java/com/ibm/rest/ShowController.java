@@ -41,7 +41,5 @@ public class ShowController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ShowController")
 				.body(showService.searchByMovieName(name));
 	}
-	
-	// fetch timetable of a show
 		
 }

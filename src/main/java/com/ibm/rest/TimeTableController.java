@@ -77,6 +77,13 @@ public class TimeTableController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
 				.body(service.searchById(id));
 	}
+	
+//	http://localhost:8880/timeTable/search/show/id/{id}
+	@GetMapping(path="/timeTable/search/show/id/{id}", produces="application/json")
+	public ResponseEntity<TimeTable> getTimeTableByShowId(@PathVariable int id){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "TimeTableController")
+				.body(service.searchByShow(id));
+	}
 
 //	http://localhost:8880/admin/timeTable/remove/id/{id}
 	@DeleteMapping(path = "/admin/timeTable/remove/id/{id}")

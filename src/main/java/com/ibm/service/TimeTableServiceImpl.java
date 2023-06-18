@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Screen;
 import com.ibm.entity.SeatingArrangement;
+import com.ibm.entity.Shows;
 import com.ibm.entity.TimeTable;
 import com.ibm.exception.ScreenNotFoundException;
 import com.ibm.exception.TimeTableAlreadyExistException;
@@ -22,7 +23,9 @@ public class TimeTableServiceImpl implements TimeTableService {
 	private TimeTableRepository repo;
 	
 	@Autowired
-	private ScreenService service;
+	private ScreenService screenService;
+	
+	@Autowired ShowService showService;
 
 	@Override
 	public int save(TimeTable t) throws TimeTableAlreadyExistException {
@@ -42,6 +45,12 @@ public class TimeTableServiceImpl implements TimeTableService {
 		t.getSlot2().setSeatingArrangement(new SeatingArrangement(sa));
 		t.getSlot3().setSeatingArrangement(new SeatingArrangement(sa));
 		t.getSlot4().setSeatingArrangement(new SeatingArrangement(sa));
+		
+		t.getSlot1().setTime("Morning Show");
+		t.getSlot2().setTime("Noon Show");
+		t.getSlot3().setTime("Evening Show");
+		t.getSlot4().setTime("Night Show");
+		
 		repo.save(t);
 		return t.getId();
 	}
@@ -60,12 +69,12 @@ public class TimeTableServiceImpl implements TimeTableService {
 
 	@Override
 	public List<TimeTable> listByScreenId(int id) throws ScreenNotFoundException {
-		return repo.findAllByScreen(service.searchById(id));
+		return repo.findAllByScreen(screenService.searchById(id));
 	}
 	
 	@Override
 	public List<TimeTable> listByScreenName(String name) throws ScreenNotFoundException {
-		return repo.findAllByScreen(service.searchByName(name));
+		return repo.findAllByScreen(screenService.searchByName(name));
 	}
 
 	@Override
@@ -92,10 +101,16 @@ public class TimeTableServiceImpl implements TimeTableService {
 
 	@Override
 	public TimeTable searchByDateAndScreen(TimeTableRequest ttr) throws ScreenNotFoundException, TimeTableNotFoundException {
-		TimeTable t = repo.findByDateAndScreen(ttr.getDate(), service.searchById(ttr.getSid()));
+		TimeTable t = repo.findByDateAndScreen(ttr.getDate(), screenService.searchById(ttr.getSid()));
 		if (t == null)
-			throw new TimeTableNotFoundException("No Timetable found for screen: " + service.searchById(ttr.getSid()).getName() + " on " + ttr.getDate());
+			throw new TimeTableNotFoundException("No Timetable found for screen: " + screenService.searchById(ttr.getSid()).getName() + " on " + ttr.getDate());
 		return t;
+	}
+
+	@Override
+	public TimeTable searchByShow(int id) {
+		Shows s = showService.searchById(id);
+		return repo.findBySlot1OrSlot2OrSlot3OrSlot4(s, s, s, s);
 	}
 
 }

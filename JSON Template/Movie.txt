@@ -26,3 +26,13 @@
     "releaseDate": "2019-04-26",
     "cast": ["Robert Downey Jr.", "Chris Evans", "Chris Hemswortg", "Mark Ruffalo", "Scarlet Johansson", "Jeremy Renner", "Brie Larson", "Paul Rudd", "Don Cheadle", "Elizabeth Olsen", "Chadwick Boseman", "Tom Holland", "Josh Brolin", "Chris Pratt", "Benedict Cumberbatch", "Samuel L. Jackson"]
     }
+    
+    {
+    "name": "Spider-Man: No Way Home",
+    "duration": "02:28",
+    "director": ["Jon Watts"],
+    "genre": ["Comedy", "Action", "Fantasy"],
+    "description":"With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
+    "releaseDate": "2021-12-16",
+    "cast": ["Tom Holland", "Zendaya", "Tobey Maguire", "Andrew Garfield", "Marisa Tomei"]
+    }
