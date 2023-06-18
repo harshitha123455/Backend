@@ -18,14 +18,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ibm.entity.Movie;
 import com.ibm.entity.MovieHighlight;
 import com.ibm.exception.MovieNotFoundException;
-import com.ibm.service.MovieHightlightService;
+import com.ibm.service.MovieHighlightService;
 
 @RestController
 @CrossOrigin
 public class MovieHighlightController {
 
 	@Autowired
-	private MovieHightlightService service;
+	private MovieHighlightService service;
 
 
 //	http://localhost:8880/admin/highlight/set
@@ -46,7 +46,7 @@ public class MovieHighlightController {
 		int mid;
 		if ((mid = service.save(id, image)) > 0) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieHighlightController")
-					.body("Movie added with id: " + mid);
+					.body("Movie with id: " + mid + " set as highlight");
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process the image file.");
 		}
