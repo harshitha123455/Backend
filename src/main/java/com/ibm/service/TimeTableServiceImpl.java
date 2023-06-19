@@ -1,6 +1,8 @@
 package com.ibm.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class TimeTableServiceImpl implements TimeTableService {
 		sa.setAvailableNormalSeats(s.getNormalSeats());
 		sa.setAvailablePremiumSeats(s.getPremiumSeats());
 		sa.setAvailableExecutiveSeats(s.getExecutiveSeats());
-		sa.setReserved(new Boolean[s.getTotalSeats()]);
+		sa.setReserved(new ArrayList<>(Collections.nCopies(100, false)));
 		t.getSlot1().setSeatingArrangement(sa);
 		t.getSlot2().setSeatingArrangement(new SeatingArrangement(sa));
 		t.getSlot3().setSeatingArrangement(new SeatingArrangement(sa));

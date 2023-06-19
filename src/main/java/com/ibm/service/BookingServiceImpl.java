@@ -42,11 +42,11 @@ public class BookingServiceImpl implements BookingService {
 	public Booking save(Booking b) {
 	    Shows s = b.getShows();
 	    SeatingArrangement sa = s.getSeatingArrangement();
-	    Boolean[] reserved = sa.getReserved();
+	    List<Boolean> reserved = sa.getReserved();
 	    List<String> types = new ArrayList<>();
 	    for (Integer num : b.getPos()) {
 	        System.err.println(num);
-	        reserved[num-1] = true;
+	        reserved.set(num-1, true);
 	        if (num >= normalStart && num <= normalEnd) {
 	            sa.setAvailableNormalSeats(sa.getAvailableNormalSeats() - 1);
 	            types.add("Normal");
@@ -114,9 +114,9 @@ public class BookingServiceImpl implements BookingService {
 			throw new BookingNotFoundException(id);
 		}
 		SeatingArrangement sa = b.getShows().getSeatingArrangement();
-		Boolean[] reserved = sa.getReserved();
+		List<Boolean> reserved = sa.getReserved();
 		for (Integer num : b.getPos()) {
-			reserved[num] = true;
+			reserved.set(num, true);
 			if (num >= normalStart && num <= normalEnd)
 				sa.setAvailableNormalSeats(sa.getAvailableNormalSeats() + 1);
 			else if (num >= executiveStart && num <= executiveEnd)
@@ -136,10 +136,10 @@ public class BookingServiceImpl implements BookingService {
         Random random = new Random();
 
         // Generate a random number
-        int randomNumber = random.nextInt(10000);
+        int randomNumber = random.nextInt(100000);
 
         // Combine timestamp and random number to form the code
-        String code = String.format("%d-%04d", timestamp, randomNumber);
+        String code = String.format("%d%06d", timestamp, randomNumber);
 
         return code;
     }

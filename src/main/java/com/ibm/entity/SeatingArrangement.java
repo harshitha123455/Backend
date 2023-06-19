@@ -1,8 +1,16 @@
 package com.ibm.entity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.Type;
 
 /**
  * Entity class which stores the seat arrangement for all shows
@@ -18,7 +26,10 @@ public class SeatingArrangement{
 	private int availableNormalSeats;
 	private int availablePremiumSeats;
 	private int availableExecutiveSeats;
-	private Boolean[] reserved;
+	@Column(length=100)
+	@Type(type = "true_false")
+	@ElementCollection(targetClass = Boolean.class)
+	private List<Boolean> reserved;
 	
 	public SeatingArrangement() {
 		
@@ -31,7 +42,7 @@ public class SeatingArrangement{
 		this.availableNormalSeats = sa.getAvailableNormalSeats();
 		this.availablePremiumSeats = sa.getAvailablePremiumSeats();
 		this.availableExecutiveSeats = sa.getAvailableExecutiveSeats();
-		this.reserved = new Boolean[this.totalSeats];
+		this.reserved = new ArrayList<>(Collections.nCopies(100, false));
 	}
 
 	public int getId() {
@@ -82,11 +93,11 @@ public class SeatingArrangement{
 		this.availableExecutiveSeats = availableExecutiveSeats;
 	}
 
-	public Boolean[] getReserved() {
+	public List<Boolean> getReserved() {
 		return reserved;
 	}
 
-	public void setReserved(Boolean[] reserved) {
+	public void setReserved(List<Boolean> reserved) {
 		this.reserved = reserved;
 	}
 

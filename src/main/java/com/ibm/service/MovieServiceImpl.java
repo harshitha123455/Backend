@@ -104,22 +104,26 @@ public class MovieServiceImpl implements MovieService {
 
 	// Generate a legal file name from movie name
 	public static String convertToLegalFilename(String input) {
-		String illegalChars = "[/\\\\:*?\"<>|] ";
-		String replacement = "_";
-		int maxFilenameLength = 255;
+	    String illegalChars = "[/\\\\:*?\"<>|]";
+	    String replacement = "_";
+	    int maxFilenameLength = 255;
 
-		// Remove or replace illegal characters
-		String filename = input.replaceAll(illegalChars, replacement);
+	    // Remove or replace illegal characters
+	    String filename = input.replaceAll(illegalChars, replacement);
 
-		// Truncate or modify the string length
-		if (filename.length() > maxFilenameLength) {
-			filename = filename.substring(0, maxFilenameLength);
-		}
+	    // Replace whitespaces with underscores
+	    filename = filename.replaceAll("\\s", replacement);
 
-		// Normalize the filename (optional)
-		filename = filename.trim().toLowerCase();
+	    // Truncate or modify the string length
+	    if (filename.length() > maxFilenameLength) {
+	        filename = filename.substring(0, maxFilenameLength);
+	    }
 
-		return filename;
+	    // Normalize the filename (optional)
+	    filename = filename.trim().toLowerCase();
+
+	    return filename;
 	}
+
 
 }

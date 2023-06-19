@@ -40,10 +40,10 @@ public class ShowController {
 //	http://localhost:8880/show/reserved/id/{id}
 	@GetMapping(path = "/show/reserved/id/{id}", produces="application/json")
 	public ResponseEntity<Response> getReserved(@PathVariable int id){
-		Boolean[] reserved = showService.searchById(id).getSeatingArrangement().getReserved();
+		List<Boolean> reserved = showService.searchById(id).getSeatingArrangement().getReserved();
 		List<Integer> pos = new ArrayList<>();
-		for (int i = 0; i < reserved.length; i++) {
-	        if (reserved[i]!= null && reserved[i])
+		for (int i = 0; i < reserved.size(); i++) {
+	        if (reserved.get(i)!= null && reserved.get(i))
 	            pos.add(i+1);
 	    }
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "ShowController")
