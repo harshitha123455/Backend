@@ -29,7 +29,14 @@ public class BookingServiceImpl implements BookingService {
 	private ShowRepository showsRepo;
 	@Autowired
 	private SeatingArrangementRepository seatRepo;
+	@Autowired
 	private ShowService service;
+	
+	@Autowired
+	private MyEmailSender email;
+	
+	@Autowired
+	private EmailService es;
 
 	@Override
 	public Booking save(Booking b) {
@@ -67,6 +74,10 @@ public class BookingServiceImpl implements BookingService {
 	    SeatingArrangement savedSeatingArrangement = seatRepo.save(sa);
 	    savedBooking.getShows().setSeatingArrangement(savedSeatingArrangement);
 
+	    // Send email
+	    email.sendMyEmail(b);
+//	    es.sendEmail(b.getUser().getEmail(), "Hello" , "Done");
+	    
 	    return savedBooking;
 	}
 
