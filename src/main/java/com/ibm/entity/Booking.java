@@ -28,8 +28,8 @@ public class Booking {
 	private List<Integer> pos;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Payment payment;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<User> user;
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
 	@ElementCollection
 	private List<String> types;
 
@@ -80,5 +80,22 @@ public class Booking {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<String> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<String> types) {
+		this.types = types;
+	}
+	
 
 }

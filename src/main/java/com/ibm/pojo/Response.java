@@ -1,16 +1,19 @@
 package com.ibm.pojo;
 
+import java.util.List;
+
 public class Response {
-	
+
 	private String message;
-	private double id;
-	
+	private List<Integer> pos;
+
 	public Response(String message) {
 		this.setMessage(message);
 	}
 
-	public Response(int id) {
-		this.setId(id);
+	public Response(List<Integer> pos) {
+		this.pos = pos;
+		System.err.println(this.pos);
 	}
 
 	public String getMessage() {
@@ -21,12 +24,12 @@ public class Response {
 		this.message = message;
 	}
 
-	public double getId() {
-		return id;
+	public List<Integer> getPos() {
+		return pos;
 	}
 
-	public void setId(double id) {
-		this.id = id;
+	public void setPos(List<Integer> pos) {
+		this.pos = pos;
 	}
 
 }

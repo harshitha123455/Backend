@@ -23,8 +23,6 @@ public class User {
 	@Column(length = 10)
 	private String contactNumber;
 	private String email;
-	@ElementCollection
-	List<Integer> bookingId;
 	public int getId() {
 		return id;
 	}
@@ -42,12 +40,6 @@ public class User {
 	}
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
-	}
-	public List<Integer> getBookingId() {
-		return bookingId;
-	}
-	public void setBookings(List<Integer> bookingId) {
-		this.bookingId = bookingId;
 	}
 	public String getEmail() {
 		return email;

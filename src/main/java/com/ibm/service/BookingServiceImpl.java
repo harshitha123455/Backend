@@ -10,10 +10,13 @@ import com.ibm.entity.Booking;
 import com.ibm.entity.Payment;
 import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.Shows;
+import com.ibm.entity.User;
 import com.ibm.exception.BookingNotFoundException;
 import com.ibm.repo.BookingRepository;
 import com.ibm.repo.PaymentRepository;
+import com.ibm.repo.SeatingArrangementRepository;
 import com.ibm.repo.ShowRepository;
+import com.ibm.repo.UserRepository;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -23,7 +26,7 @@ public class BookingServiceImpl implements BookingService {
 	@Autowired
 	private ShowRepository showsRepo;
 	@Autowired
-	private PaymentRepository paymentRepo;
+	private SeatingArrangementRepository seatRepo;
 	private ShowService service;
 
 	@Override
@@ -31,15 +34,12 @@ public class BookingServiceImpl implements BookingService {
 	    Shows s = b.getShows();
 	    SeatingArrangement sa = s.getSeatingArrangement();
 	    Boolean[] reserved = sa.getReserved();
-	    System.err.println("amount: " + b.getAmount());
 	    List<String> types = new ArrayList<>();
 	    for (Integer num : b.getPos()) {
 	        System.err.println(num);
-	        reserved[num] = true;
+	        reserved[num-1] = true;
 	        if (num >= normalStart && num <= normalEnd) {
-	            System.err.println(sa.getAvailableNormalSeats());
 	            sa.setAvailableNormalSeats(sa.getAvailableNormalSeats() - 1);
-	            System.err.println(sa.getAvailableNormalSeats());
 	            types.add("Normal");
 	        } else if (num >= executiveStart && num <= executiveEnd) {
 	            sa.setAvailableExecutiveSeats(sa.getAvailableExecutiveSeats() - 1);
@@ -50,10 +50,8 @@ public class BookingServiceImpl implements BookingService {
 	        }
 	        sa.setAvailableSeats(sa.getAvailableSeats() - 1);
 	    }
-	    System.err.println(sa.getAvailableNormalSeats());
 	    s.setSeatingArrangement(sa);
 	    b.setShows(s);
-	    System.err.println(b.getShows().getSeatingArrangement().getAvailableNormalSeats());
 	    b.setType(types);
 	    Shows updatedShows = showsRepo.save(b.getShows());
 	    b.setShows(updatedShows);
@@ -61,8 +59,14 @@ public class BookingServiceImpl implements BookingService {
 	    p.setAmount(b.getAmount());
 	    b.setPayment(p);
 	    Booking savedBooking = bookingRepo.save(b);
+
+	    // Update seating arrangement in the database
+	    SeatingArrangement savedSeatingArrangement = seatRepo.save(sa);
+	    savedBooking.getShows().setSeatingArrangement(savedSeatingArrangement);
+
 	    return savedBooking;
 	}
+
 
 
 	@Override

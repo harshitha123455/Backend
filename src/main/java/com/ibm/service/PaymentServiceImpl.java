@@ -3,10 +3,12 @@ package com.ibm.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Payment;
 import com.ibm.repo.PaymentRepository;
 
+@Service
 public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
