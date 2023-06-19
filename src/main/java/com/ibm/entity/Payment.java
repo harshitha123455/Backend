@@ -14,7 +14,7 @@ public class Payment {
 	@Id
 	@GeneratedValue
 	private int id;
-	private Long transactionId;
+	private String transactionId;
 	private Double amount;
 	public int getId() {
 		return id;
@@ -22,10 +22,10 @@ public class Payment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Long getTransactionId() {
+	public String getTransactionId() {
 		return transactionId;
 	}
-	public void setTransactionId(Long transactionId) {
+	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
 	public Double getAmount() {

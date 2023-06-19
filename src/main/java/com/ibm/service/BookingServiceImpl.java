@@ -1,7 +1,9 @@
 package com.ibm.service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,7 @@ public class BookingServiceImpl implements BookingService {
 	    b.setShows(updatedShows);
 	    Payment p = new Payment();
 	    p.setAmount(b.getAmount());
+	    p.setTransactionId(generateRandomCode());
 	    b.setPayment(p);
 	    Booking savedBooking = bookingRepo.save(b);
 
@@ -113,5 +116,21 @@ public class BookingServiceImpl implements BookingService {
 		}
 		bookingRepo.deleteById(id);
 	}
+	
+	private static String generateRandomCode() {
+        // Get the current timestamp
+        long timestamp = Instant.now().toEpochMilli();
+
+        // Create a random number generator
+        Random random = new Random();
+
+        // Generate a random number
+        int randomNumber = random.nextInt(10000);
+
+        // Combine timestamp and random number to form the code
+        String code = String.format("%d-%04d", timestamp, randomNumber);
+
+        return code;
+    }
 
 }
