@@ -1,7 +1,7 @@
 {
     "date": "2023-06-09",
     "screen": {
-        "id": 5,
+        "id": 6,
         "name": "Screen 1",
         "totalSeats": 100,
         "normalSeats": 60,
@@ -130,46 +130,28 @@
     },
     "slot4": {
         "movie": {
-            "id": 2,
-            "name": "Avatar",
-            "duration": "02:42:00",
-            "director": [
-                "James Cameron"
-            ],
-            "genre": [
-                "Sci-fi",
-                "Action"
-            ],
-            "description": "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
-            "releaseDate": "2009-12-18",
-            "cast": [
-                "Zoe Saldana",
-                "Sam Worthington",
-                "Sigourney Weaver",
-                "Michelle Rodriguez",
-                "Joel David Moore",
-                "Laz Alonso",
-                "Stephen Lang",
-                "Giovanni Ribisi",
-                "CCH Pounder",
-                "Wes Studi",
-                "Matt Gerald",
-                "Peter Mensah",
-                "Dileep Rao",
-                "Peter Dillon",
-                "Scott Lawrence",
-                "Sean Anthony Moran",
-                "Kyla Warren",
-                "kevin Dorman",
-                "Julene Renee",
-                "Jacob Tomuri",
-                "Luke Hawker",
-                "Sean Patrick Murphy",
-                "Woody Schultz",
-                "David Van Horn"
-            ],
-            "imageUrl": "http://localhost:8880/images/avatar.jpg"
-        },
+        "id": 5,
+        "name": "Spider-Man: No Way Home",
+        "duration": "02:28:00",
+        "director": [
+            "Jon Watts"
+        ],
+        "genre": [
+            "Comedy",
+            "Action",
+            "Fantasy"
+        ],
+        "description": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
+        "releaseDate": "2021-12-16",
+        "cast": [
+            "Tom Holland",
+            "Zendaya",
+            "Tobey Maguire",
+            "Andrew Garfield",
+            "Marisa Tomei"
+        ],
+        "imageUrl": "http://localhost:8880/images/spider-man_no way home.jpg"
+    },
         "normalRate": 100,
         "executiveRate": 200,
         "premiumRate": 300
