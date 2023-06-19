@@ -13,18 +13,23 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f9f9f9;
+            border: 2px solid #007bff; /* Updated border color */
+            border-radius: 4px;
         }
 
         h1 {
             color: #333333;
             font-size: 24px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         p {
             color: #666666;
             font-size: 16px;
             margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         table {
@@ -43,10 +48,41 @@
             background-color: #f5f5f5;
         }
 
+        .ticket {
+            background-color: #ffffff;
+            border: 2px solid #dddddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-title {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 20px;
+            color: #333333;
+        }
+
+        .ticket-details {
+            margin-bottom: 10px;
+        }
+
+        .ticket-details p {
+            margin: 0;
+            font-size: 16px;
+        }
+
         .footer {
             background-color: #f5f5f5;
             padding: 10px;
             text-align: center;
+        }
+
+        .email-link {
+            color: #007bff;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -56,22 +92,34 @@
         <p>Dear [Customer Name],</p>
         <p>Thank you for your booking. We are pleased to confirm your reservation with the following details:</p>
         
-        <table>
-            <tr>
-                <th>Booking ID</th>
-                <th>Amount Paid</th>
-                <th>Seats Booked</th>
-                <th>Type of Seat</th>
-            </tr>
-            <tr>
-                <td>[Booking ID]</td>
-                <td>[Amount Paid]</td>
-                <td>[Seats Booked]</td>
-                <td>[Type of Seat]</td>
-            </tr>
-        </table>
+        <div class="ticket" style="border-color: #007bff;">
+            <div class="ticket-title">E-Ticket</div>
+            <div class="ticket-details">
+                <p><strong>Movie:</strong> [Movie Name]</p>
+                <p><strong>Screen Name:</strong> [Screen Name]</p>
+                <p><strong>Screen Date:</strong> [Screen Date]</p>
+                <p><strong>Screen Time:</strong> [Screen Time]</p>
+            </div>
+            
+            <table>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Amount Paid</th>
+                    <th>Seats Booked</th>
+                    <th>Type of Seat</th>
+                </tr>
+                <tr>
+                    <td>[Booking ID]</td>
+                    <td>[Amount Paid]</td>
+                    <td>[Seats Booked]</td>
+                    <td>[Type of Seat]</td>
+                </tr>
+            </table>
+        </div>
         
-        <p>If you have any questions or need further assistance, please don't hesitate to contact us. We look forward to welcoming you!</p>
+        <p>For any queries or additional details, please feel free to reach out to our customer support team at <a href="mailto:showtimeshow110@gmail.com" class="email-link">showtimeshow110@gmail.com</a>. We are always here to assist you!</p>
+        
+        <p>If you have any other questions or need further assistance, please don't hesitate to contact us. We look forward to welcoming you!</p>
         
         <div class="footer">
             <p>Best Regards,<br>
