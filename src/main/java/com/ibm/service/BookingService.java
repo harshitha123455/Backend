@@ -14,7 +14,7 @@ public interface BookingService {
 	int premiumStart = 81;
 	int premiumEnd = 100;
 
-	int save(Booking b);
+	Booking save(Booking b);
 
 	List<Booking> list();
 

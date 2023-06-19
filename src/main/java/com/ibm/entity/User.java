@@ -23,9 +23,8 @@ public class User {
 	@Column(length = 10)
 	private String contactNumber;
 	private String email;
-	@OneToMany
 	@ElementCollection
-	List<Booking> bookings;
+	List<Integer> bookingId;
 	public int getId() {
 		return id;
 	}
@@ -44,11 +43,11 @@ public class User {
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-	public List<Booking> getBookings() {
-		return bookings;
+	public List<Integer> getBookingId() {
+		return bookingId;
 	}
-	public void setBookings(List<Booking> bookings) {
-		this.bookings = bookings;
+	public void setBookings(List<Integer> bookingId) {
+		this.bookingId = bookingId;
 	}
 	public String getEmail() {
 		return email;

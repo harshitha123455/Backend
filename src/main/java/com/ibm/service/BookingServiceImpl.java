@@ -1,51 +1,80 @@
 package com.ibm.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibm.entity.Booking;
+import com.ibm.entity.Payment;
 import com.ibm.entity.SeatingArrangement;
 import com.ibm.entity.Shows;
 import com.ibm.exception.BookingNotFoundException;
 import com.ibm.repo.BookingRepository;
+import com.ibm.repo.PaymentRepository;
+import com.ibm.repo.ShowRepository;
 
 @Service
 public class BookingServiceImpl implements BookingService {
-	
+
 	@Autowired
-	private BookingRepository repo;
+	private BookingRepository bookingRepo;
+	@Autowired
+	private ShowRepository showsRepo;
+	@Autowired
+	private PaymentRepository paymentRepo;
 	private ShowService service;
 
 	@Override
-	public int save(Booking b) {
-		SeatingArrangement sa = b.getShows().getSeatingArrangement();
-		Boolean[] reserved = sa.getReserved();
-		for(Integer num: b.getPos()) {
-			reserved[num] = true;
-			if (num >= normalStart && num<=normalEnd)
-				sa.setAvailableNormalSeats(sa.getAvailableNormalSeats()-1);
-			else if(num >= executiveStart && num <= executiveEnd)
-				sa.setAvailableExecutiveSeats(sa.getAvailableExecutiveSeats()-1);
-			else
-				sa.setAvailablePremiumSeats(sa.getAvailablePremiumSeats()-1);
-			sa.setAvailableSeats(sa.getAvailableSeats()-1);
-		}
-		repo.save(b);
-		return b.getId();
+	public Booking save(Booking b) {
+	    Shows s = b.getShows();
+	    SeatingArrangement sa = s.getSeatingArrangement();
+	    Boolean[] reserved = sa.getReserved();
+	    System.err.println("amount: " + b.getAmount());
+	    List<String> types = new ArrayList<>();
+	    for (Integer num : b.getPos()) {
+	        System.err.println(num);
+	        reserved[num] = true;
+	        if (num >= normalStart && num <= normalEnd) {
+	            System.err.println(sa.getAvailableNormalSeats());
+	            sa.setAvailableNormalSeats(sa.getAvailableNormalSeats() - 1);
+	            System.err.println(sa.getAvailableNormalSeats());
+	            types.add("Normal");
+	        } else if (num >= executiveStart && num <= executiveEnd) {
+	            sa.setAvailableExecutiveSeats(sa.getAvailableExecutiveSeats() - 1);
+	            types.add("Executive");
+	        } else {
+	            sa.setAvailablePremiumSeats(sa.getAvailablePremiumSeats() - 1);
+	            types.add("Premium");
+	        }
+	        sa.setAvailableSeats(sa.getAvailableSeats() - 1);
+	    }
+	    System.err.println(sa.getAvailableNormalSeats());
+	    s.setSeatingArrangement(sa);
+	    b.setShows(s);
+	    System.err.println(b.getShows().getSeatingArrangement().getAvailableNormalSeats());
+	    b.setType(types);
+	    Shows updatedShows = showsRepo.save(b.getShows());
+	    b.setShows(updatedShows);
+	    Payment p = new Payment();
+	    p.setAmount(b.getAmount());
+	    b.setPayment(p);
+	    Booking savedBooking = bookingRepo.save(b);
+	    return savedBooking;
 	}
+
 
 	@Override
 	public List<Booking> list() {
-		return repo.findAll();
+		return bookingRepo.findAll();
 	}
 
 	@Override
 	public Booking searchById(int id) throws BookingNotFoundException {
 		Booking b;
 		try {
-			b = repo.findById(id).get();
+			b = bookingRepo.findById(id).get();
 		} catch (Exception e) {
 			throw new BookingNotFoundException(id);
 		}
@@ -55,29 +84,30 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public List<Booking> searchByShowId(int id) {
 		Shows s = service.searchById(id);
-		return repo.findAllByShows(s);
+		return bookingRepo.findAllByShows(s);
 	}
 
 	@Override
 	public void remove(int id) throws BookingNotFoundException {
 		Booking b;
 		try {
-			b = repo.findById(id).get();
+			b = bookingRepo.findById(id).get();
 		} catch (Exception e) {
 			throw new BookingNotFoundException(id);
 		}
 		SeatingArrangement sa = b.getShows().getSeatingArrangement();
 		Boolean[] reserved = sa.getReserved();
-		for(Integer num: b.getPos()) {
+		for (Integer num : b.getPos()) {
 			reserved[num] = true;
-			if (num >= normalStart && num<=normalEnd)
-				sa.setAvailableNormalSeats(sa.getAvailableNormalSeats()+1);
-			else if(num >= executiveStart && num <= executiveEnd)
-				sa.setAvailableExecutiveSeats(sa.getAvailableExecutiveSeats()+1);
+			if (num >= normalStart && num <= normalEnd)
+				sa.setAvailableNormalSeats(sa.getAvailableNormalSeats() + 1);
+			else if (num >= executiveStart && num <= executiveEnd)
+				sa.setAvailableExecutiveSeats(sa.getAvailableExecutiveSeats() + 1);
 			else
-				sa.setAvailablePremiumSeats(sa.getAvailablePremiumSeats()+1);
-			sa.setAvailableSeats(sa.getAvailableSeats()+1);
+				sa.setAvailablePremiumSeats(sa.getAvailablePremiumSeats() + 1);
+			sa.setAvailableSeats(sa.getAvailableSeats() + 1);
 		}
+		bookingRepo.deleteById(id);
 	}
 
 }

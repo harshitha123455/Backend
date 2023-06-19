@@ -21,6 +21,7 @@ public class Booking {
 	@Id
 	@GeneratedValue
 	private int id;
+	private double amount;
 	@ManyToOne
 	private Shows shows;
 	@ElementCollection
@@ -29,7 +30,8 @@ public class Booking {
 	private Payment payment;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<User> user;
-	private String type;
+	@ElementCollection
+	private List<String> types;
 
 	public int getId() {
 		return id;
@@ -55,12 +57,12 @@ public class Booking {
 		this.payment = payment;
 	}
 
-	public String getType() {
-		return type;
+	public List<String> getType() {
+		return types;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setType(List<String> types) {
+		this.types = types;
 	}
 
 	public List<Integer> getPos() {
@@ -69,6 +71,14 @@ public class Booking {
 
 	public void setPos(List<Integer> pos) {
 		this.pos = pos;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
 }
