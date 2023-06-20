@@ -4,6 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ibm.entity.SeatingArrangement;
 
-public interface SeatingArrangementRepository extends JpaRepository<SeatingArrangement, Integer>{
+/**
+ * Repository interface for managing the SeatingArrangement entity.
+ */
+public interface SeatingArrangementRepository extends JpaRepository<SeatingArrangement, Integer> {
 
+	// No additional methods are defined as JpaRepository provides basic CRUD
+	// operations.
 }

@@ -1,4 +1,5 @@
 package com.ibm.security.jwt;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,15 +15,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Filter for processing authentication tokens in the request.
+ * This filter intercepts incoming requests, extracts the authentication token from the request header,
+ * validates the token, and sets the authentication information in the SecurityContextHolder if the token is valid.
+ */
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
 
-
+    /**
+     * Filters the incoming requests and performs token-based authentication.
+     *
+     * @param request     The HTTP servlet request.
+     * @param response    The HTTP servlet response.
+     * @param filterChain The filter chain.
+     * @throws ServletException If a servlet exception occurs.
+     * @throws IOException      If an I/O exception occurs.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
@@ -49,6 +63,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Parses the token from the request header.
+     *
+     * @param request The HTTP servlet request.
+     * @return The token if present, otherwise null.
+     */
     private String parseToken(HttpServletRequest request) {
         String header = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(header) && header.startsWith(TOKEN_PREFIX)) {
@@ -57,6 +77,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         return null;
     }
 
+    /**
+     * Retrieves the authentication object for the user based on the token.
+     *
+     * @param token The token for authentication.
+     * @return The authentication object.
+     */
     private Authentication getAuthentication(String token) {
         String username = JwtUtil.extractUsername(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);

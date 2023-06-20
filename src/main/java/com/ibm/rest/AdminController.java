@@ -20,6 +20,9 @@ import com.ibm.entity.Admin;
 import com.ibm.pojo.AdminLogin;
 import com.ibm.service.AdminService;
 
+/**
+ * REST controller for handling Admin-related operations.
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/admin")
@@ -28,7 +31,14 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-//	http://localhost:8880/admin/add
+	/**
+	 * Endpoint for adding a new admin.
+	 *
+	 * Example URL: http://localhost:8880/admin/add
+	 * 
+	 * @param admin the admin object to be added
+	 * @return ResponseEntity containing the response message and HTTP status
+	 */
 	@PostMapping(path = "/add", consumes = "application/json")
 	public ResponseEntity<String> saveAdmin(@RequestBody Admin admin) {
 		int id = service.save(admin);
@@ -36,35 +46,70 @@ public class AdminController {
 				.body("Admin added with id: " + id);
 	}
 
-//	http://localhost:8880/admin/all
+	/**
+	 * Endpoint for retrieving all admins.
+	 *
+	 * Example URL: http://localhost:8880/admin/all
+	 * 
+	 * @return ResponseEntity containing the list of all admins and HTTP status
+	 */
 	@GetMapping(path = "/all", produces = "application/json")
 	public ResponseEntity<List<Admin>> getAllAdmins() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController")
 				.body(service.list());
 	}
 
-//	http://localhost:8880/admin/id/{id}
+	/**
+	 * Endpoint for retrieving an admin by ID.
+	 *
+	 * Example URL: http://localhost:8880/admin/id/{id}
+	 * 
+	 * @param id the ID of the admin
+	 * @return ResponseEntity containing the admin object and HTTP status
+	 */
 	@GetMapping(path = "/id/{id}", produces = "application/json")
 	public ResponseEntity<Admin> getAdminById(@PathVariable int id) {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController")
 				.body(service.searchById(id));
 	}
 
-//	http://localhost:8880/admin/email/{email}
+	/**
+	 * Endpoint for retrieving an admin by email.
+	 *
+	 * Example URL: http://localhost:8880/admin/email/{email}
+	 * 
+	 * @param email the email of the admin
+	 * @return ResponseEntity containing the admin object and HTTP status
+	 */
 	@GetMapping(path = "/email/{email}", produces = "application/json")
 	public ResponseEntity<Admin> getAdminByEmail(@PathVariable String email) {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController")
 				.body(service.searchByEmail(email));
 	}
 
-//	http://localhost:8880/admin/remove/id/{id}
+	/**
+	 * Endpoint for deleting an admin by ID.
+	 *
+	 * Example URL: http://localhost:8880/admin/remove/id/{id}
+	 * 
+	 * @param id the ID of the admin to be deleted
+	 * @return ResponseEntity containing the response message and HTTP status
+	 */
 	@DeleteMapping(path = "/remove/id/{id}", produces = "application/json")
 	public ResponseEntity<String> deleteAdmin(@PathVariable int id) {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController")
 				.body("Admin with id: " + id + " deleted successfully");
 	}
 
-//	http://localhost:8880/admin/login
+	/**
+	 * Endpoint for authenticating an admin.
+	 *
+	 * Example URL: http://localhost:8880/admin/login
+	 * 
+	 * @param a the AdminLogin object containing the email and password
+	 * @return ResponseEntity containing the authentication token or unauthorized
+	 *         status
+	 */
 	@PostMapping(path = "/login", consumes = "application/json")
 	public ResponseEntity<Map<String, String>> authenticateAdmin(@RequestBody AdminLogin a) {
 		String token = service.authenticate(a.getEmail(), a.getPassword());
@@ -72,8 +117,7 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		Map<String, String> response = new HashMap<>();
 		response.put("token", token);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController")
-				.body(response);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "AdminController").body(response);
 	}
 
 }

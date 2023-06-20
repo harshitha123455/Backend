@@ -15,44 +15,74 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.entity.Booking;
 import com.ibm.exception.BookingNotFoundException;
-import com.ibm.pojo.Response;
 import com.ibm.service.BookingService;
 
+/**
+ * REST controller for handling Booking-related operations.
+ */
 @CrossOrigin
 @RestController
 public class BookingController {
 
 	@Autowired
 	private BookingService service;
-	
-//	http://localhost:8880/booking/add
-	@PostMapping(path = "/booking/book", consumes="application/json")
-	public ResponseEntity<Booking> addBooking(@RequestBody Booking b){
+
+	/**
+	 * Endpoint for adding a new booking.
+	 *
+	 * Example URL: http://localhost:8880/booking/add
+	 * 
+	 * @param b the booking object to be added
+	 * @return ResponseEntity containing the added booking and HTTP status
+	 */
+	@PostMapping(path = "/booking/book", consumes = "application/json")
+	public ResponseEntity<Booking> addBooking(@RequestBody Booking b) {
 		service.save(b);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "BookingController")
-				.body(b);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "BookingController").body(b);
 	}
 
-//	http://localhost:8880/admin/booking/all
-	@GetMapping(path = "/admin/booking/all", produces="application/json")
-	public ResponseEntity<List<Booking>> getAllBookings(){
+	/**
+	 * Endpoint for retrieving all bookings.
+	 *
+	 * Example URL: http://localhost:8880/admin/booking/all
+	 * 
+	 * @return ResponseEntity containing the list of all bookings and HTTP status
+	 */
+	@GetMapping(path = "/admin/booking/all", produces = "application/json")
+	public ResponseEntity<List<Booking>> getAllBookings() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "BookingController")
 				.body(service.list());
 	}
-	
-//	http://localhost:8880/booking/search/id/{id}
-	@GetMapping(path = "/booking/search/id/{id}", produces="application/json")
-	public ResponseEntity<Booking> getBookingbyId(@PathVariable int id) throws BookingNotFoundException{
+
+	/**
+	 * Endpoint for retrieving a booking by ID.
+	 *
+	 * Example URL: http://localhost:8880/booking/search/id/{id}
+	 * 
+	 * @param id the ID of the booking
+	 * @return ResponseEntity containing the booking object and HTTP status
+	 * @throws BookingNotFoundException if the booking is not found
+	 */
+	@GetMapping(path = "/booking/search/id/{id}", produces = "application/json")
+	public ResponseEntity<Booking> getBookingById(@PathVariable int id) throws BookingNotFoundException {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "BookingController")
 				.body(service.searchById(id));
 	}
-	
-//	http://localhost:8880/admin/booking/remove/id/{id}
-	@DeleteMapping(path = "/admin/booking/remove/id/{id}", produces="application/json")
-	public ResponseEntity<String> removeBookingbyId(@PathVariable int id) throws BookingNotFoundException{
+
+	/**
+	 * Endpoint for removing a booking by ID.
+	 *
+	 * Example URL: http://localhost:8880/admin/booking/remove/id/{id}
+	 * 
+	 * @param id the ID of the booking to be removed
+	 * @return ResponseEntity containing the response message and HTTP status
+	 * @throws BookingNotFoundException if the booking is not found
+	 */
+	@DeleteMapping(path = "/admin/booking/remove/id/{id}", produces = "application/json")
+	public ResponseEntity<String> removeBookingById(@PathVariable int id) throws BookingNotFoundException {
 		service.remove(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "BookingController")
 				.body("Booking with id: " + id + " deleted successfully");
 	}
-	
+
 }

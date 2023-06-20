@@ -26,6 +26,9 @@ import com.ibm.exception.MovieAlreadyExistException;
 import com.ibm.exception.MovieNotFoundException;
 import com.ibm.service.MovieService;
 
+/**
+ * REST controller for handling Movie-related operations.
+ */
 @CrossOrigin
 @RestController
 public class MovieController {
@@ -33,9 +36,19 @@ public class MovieController {
 	@Autowired
 	private MovieService service;
 
-	private static final String uploadDir = "images";
-
-//	http://localhost:8880/admin/movie/add
+	/**
+	 * End point for adding a new movie with an image.
+	 * 
+	 * Example URL: http://localhost:8880/admin/movie/add
+	 *
+	 * @param image the image file of the movie
+	 * @param ms    the JSON representation of the movie object
+	 * @return ResponseEntity with the success message or error
+	 * @throws MovieAlreadyExistException if the movie already exists
+	 * @throws JsonMappingException       if there is an error mapping JSON to movie
+	 *                                    object
+	 * @throws JsonProcessingException    if there is an error processing JSON
+	 */
 	@PostMapping(path = "/admin/movie/add", consumes = "multipart/form-data")
 	public ResponseEntity<String> addMovie(@RequestParam("image") MultipartFile image, @RequestParam("movie") String ms)
 			throws MovieAlreadyExistException, JsonMappingException, JsonProcessingException {
@@ -63,7 +76,15 @@ public class MovieController {
 		}
 	}
 
-//	http://localhost:8880/admin/movie/update
+	/**
+	 * End point for updating an existing movie.
+	 *
+	 *Example URL: http://localhost:8880/admin/movie/update
+	 *
+	 * @param m the updated movie object
+	 * @return ResponseEntity with the success message or error
+	 * @throws MovieNotFoundException if the movie is not found
+	 */
 	@PutMapping(path = "/admin/movie/update", consumes = "application/json")
 	public ResponseEntity<String> updateMovie(@RequestBody Movie m) throws MovieNotFoundException {
 		int id = service.update(m);
@@ -71,28 +92,58 @@ public class MovieController {
 				.body("Movie with id: " + id + " updated");
 	}
 
-//	http://localhost:8880/movie/all	
+	/**
+	 * End point for retrieving all movies.
+	 * 
+	 * Example URL: http://localhost:8880/movie/all
+	 *
+	 * @return ResponseEntity containing the list of movies
+	 */
 	@GetMapping(path = "/movie/all", produces = "application/json")
 	public ResponseEntity<List<Movie>> getAllMovies() {
 		List<Movie> movies = service.list();
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController").body(movies);
 	}
 
-//	http://localhost:8880/movie/search/id/{id}
+	/**
+	 * End point for retrieving a movie by its ID.
+	 * 
+	 * Example URL: http://localhost:8880/movie/search/id/{id}
+	 *
+	 * @param id the ID of the movie
+	 * @return ResponseEntity containing the movie
+	 * @throws MovieNotFoundException if the movie is not found
+	 */
 	@GetMapping(path = "/movie/search/id/{id}", produces = "application/json")
 	public ResponseEntity<Movie> getMovieById(@PathVariable int id) throws MovieNotFoundException {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController")
 				.body(service.searchById(id));
 	}
 
-//	http://localhost:8880/movie/search/name/{name}
+	/**
+	 * End point for retrieving a movie by its name.
+	 * 
+	 * Example URL: http://localhost:8880/movie/search/all/{all}
+	 *
+	 * @param name the name of the movie
+	 * @return ResponseEntity containing the movie
+	 * @throws MovieNotFoundException if the movie is not found
+	 */
 	@GetMapping(path = "/movie/search/name/{name}", produces = "application/json")
 	public ResponseEntity<Movie> getMovieByName(@PathVariable String name) throws MovieNotFoundException {
 		Movie m = service.searchByName(name);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "MovieController").body(m);
 	}
 
-//	http://localhost:8880/admin/movie/remove/id/{id}
+	/**
+	 * End point for removing a movie by its ID.
+	 * 
+	 * Example URL: http://localhost:8880/admin/movie/remove/id/{id}
+	 *
+	 * @param id the ID of the movie to remove
+	 * @return ResponseEntity with the success message or error
+	 * @throws MovieNotFoundException if the movie is not found
+	 */
 	@DeleteMapping(path = "/admin/movie/remove/id/{id}")
 	public ResponseEntity<String> removeMovieById(@PathVariable int id) throws MovieNotFoundException {
 		service.removeById(id);
@@ -100,7 +151,15 @@ public class MovieController {
 				.body("Movie with id: " + id + " deleted successfully");
 	}
 
-//	http://localhost:8880/admin/movie/remove/name/{name}
+	/**
+	 * End point for removing a movie by its name.
+	 * 
+	 * Example URL: http://localhost:8880/admin/movie/remove/name/{name}
+	 *
+	 * @param name the name of the movie to remove
+	 * @return ResponseEntity with the success message or error
+	 * @throws MovieNotFoundException if the movie is not found
+	 */
 	@DeleteMapping(path = "/admin/movie/remove/name/{name}")
 	public ResponseEntity<String> removeMovieByName(@PathVariable String name) throws MovieNotFoundException {
 		service.removeByName(name);

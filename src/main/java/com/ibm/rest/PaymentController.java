@@ -12,16 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ibm.entity.Payment;
 import com.ibm.service.PaymentService;
 
-@CrossOrigin
+/**
+ * REST controller for handling payment-related operations.
+ */
 @RestController
+@CrossOrigin
 public class PaymentController {
 
 	@Autowired
 	PaymentService service;
-	
-//	http://localhost:8880/admin/payment/all
-	@GetMapping(path="/admin/payment/all", produces="application/json")
-	public ResponseEntity<List<Payment>> getAllPayment(){
+
+	/**
+	 * End point for retrieving all payments.
+	 * 
+	 * Example URL: http://localhost:8880/admin/payment/all
+	 *
+	 * @return ResponseEntity containing the list of payments
+	 */
+	@GetMapping(path = "/admin/payment/all", produces = "application/json")
+	public ResponseEntity<List<Payment>> getAllPayment() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).header("Response from", "PaymentController")
 				.body(service.list());
 	}

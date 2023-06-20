@@ -16,6 +16,10 @@ import com.ibm.exception.MovieAlreadyExistException;
 import com.ibm.exception.MovieNotFoundException;
 import com.ibm.repo.MovieRepository;
 
+/**
+ * Implementation of the {@link MovieService} interface that provides operations for
+ * managing movies.
+ */
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -25,105 +29,145 @@ public class MovieServiceImpl implements MovieService {
 	private static final String uploadDir = "images";
 	private static final String imageBaseUrl = "http://localhost:8880/";
 
+	/**
+	 * Saves a new movie with the provided details and image.
+	 *
+	 * @param movie the movie entity to be saved
+	 * @param image the image file of the movie
+	 * @return the ID of the saved movie
+	 * @throws MovieAlreadyExistException if a movie with the same name already
+	 *                                    exists
+	 */
 	@Override
-	public int save(Movie m, MultipartFile image) throws MovieAlreadyExistException {
-		Movie m1 = repo.findByName(m.getName());
-		if (m1 != null && m1.getId() != m.getId()) // if movie is in db and their id's do not match
-			throw new MovieAlreadyExistException(m1.getName());
-		// Process the image file
+	public int save(Movie movie, MultipartFile image) throws MovieAlreadyExistException {
+		Movie existingMovie = repo.findByName(movie.getName());
+		if (existingMovie != null && existingMovie.getId() != movie.getId()) {
+			throw new MovieAlreadyExistException(existingMovie.getName());
+		}
+
 		try {
 			String fileExtension = StringUtils.getFilenameExtension(image.getOriginalFilename());
-			// Generate the file name based on the movie name
-			String fileName = convertToLegalFilename(m.getName()) + "." + fileExtension;
+			String fileName = convertToLegalFilename(movie.getName()) + "." + fileExtension;
 
-			// Create the directory if it doesn't exist
 			Files.createDirectories(Path.of(uploadDir));
 
-			// Save the image file to the target directory
 			Path filePath = Path.of(uploadDir, fileName);
 			Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			System.err.println(imageBaseUrl + filePath.toString());
-			m.setImageUrl(imageBaseUrl + filePath.toString().replace("\\", "/"));
-			repo.save(m);
-			return m.getId();
+
+			movie.setImageUrl(imageBaseUrl + filePath.toString().replace("\\", "/"));
+			repo.save(movie);
+
+			return movie.getId();
 		} catch (IOException e) {
 			return -1;
 		}
 	}
 
+	/**
+	 * Updates an existing movie with the provided details.
+	 *
+	 * @param movie the updated movie entity
+	 * @return the ID of the updated movie
+	 * @throws MovieNotFoundException if the movie with the specified ID is not
+	 *                                found
+	 */
 	@Override
-	public int update(Movie m) throws MovieNotFoundException {
-		searchById(m.getId()); // check whether the movie exists
-		repo.save(m);
-		return m.getId();
+	public int update(Movie movie) throws MovieNotFoundException {
+		searchById(movie.getId());
+		repo.save(movie);
+		return movie.getId();
 	}
 
+	/**
+	 * Retrieves a list of all movies.
+	 *
+	 * @return a list of Movie entities
+	 */
 	@Override
 	public List<Movie> list() {
 		return repo.findAll();
 	}
 
+	/**
+	 * Searches for a movie by ID.
+	 *
+	 * @param id the ID of the movie to search for
+	 * @return the found Movie entity
+	 * @throws MovieNotFoundException if the movie with the specified ID is not
+	 *                                found
+	 */
 	@Override
 	public Movie searchById(int id) throws MovieNotFoundException {
-		Movie m;
 		try {
-			m = repo.findById(id).get();
+			return repo.findById(id).orElseThrow(() -> new MovieNotFoundException(id));
 		} catch (Exception e) {
 			throw new MovieNotFoundException(id);
 		}
-		return m;
 	}
 
+	/**
+	 * Searches for a movie by name.
+	 *
+	 * @param name the name of the movie to search for
+	 * @return the found Movie entity
+	 * @throws MovieNotFoundException if the movie with the specified name is not
+	 *                                found
+	 */
 	@Override
 	public Movie searchByName(String name) throws MovieNotFoundException {
-		Movie m = repo.findByName(name);
-		if (m == null)
+		Movie movie = repo.findByName(name);
+		if (movie == null) {
 			throw new MovieNotFoundException(name);
-		return m;
+		}
+		return movie;
 	}
 
+	/**
+	 * Removes a movie by ID.
+	 *
+	 * @param id the ID of the movie to remove
+	 * @throws MovieNotFoundException if the movie with the specified ID is not
+	 *                                found
+	 */
 	@Override
 	public void removeById(int id) throws MovieNotFoundException {
-		Movie m;
-		try {
-			m = repo.findById(id).get();
-		} catch (Exception e) {
-			throw new MovieNotFoundException(id);
-		}
-		repo.delete(m);
+		Movie movie = searchById(id);
+		repo.delete(movie);
 	}
 
+	/**
+	 * Removes a movie by name.
+	 *
+	 * @param name the name of the movie to remove
+	 * @throws MovieNotFoundException if the movie with the specified name is not
+	 *                                found
+	 */
 	@Override
 	public void removeByName(String name) throws MovieNotFoundException {
-		Movie m = repo.findByName(name);
-		if (m == null)
-			throw new MovieNotFoundException(name);
-		else
-			repo.delete(m);
+		Movie movie = searchByName(name);
+		repo.delete(movie);
 	}
 
-	// Generate a legal file name from movie name
+	/**
+	 * Converts the input string to a legal file name.
+	 *
+	 * @param input the input string to convert
+	 * @return the converted legal file name
+	 */
 	public static String convertToLegalFilename(String input) {
-	    String illegalChars = "[/\\\\:*?\"<>|]";
-	    String replacement = "_";
-	    int maxFilenameLength = 255;
+		String illegalChars = "[/\\\\:*?\"<>|]";
+		String replacement = "_";
+		int maxFilenameLength = 255;
 
-	    // Remove or replace illegal characters
-	    String filename = input.replaceAll(illegalChars, replacement);
+		String filename = input.replaceAll(illegalChars, replacement);
+		filename = filename.replaceAll("\\s", replacement);
 
-	    // Replace whitespaces with underscores
-	    filename = filename.replaceAll("\\s", replacement);
+		if (filename.length() > maxFilenameLength) {
+			filename = filename.substring(0, maxFilenameLength);
+		}
 
-	    // Truncate or modify the string length
-	    if (filename.length() > maxFilenameLength) {
-	        filename = filename.substring(0, maxFilenameLength);
-	    }
+		filename = filename.trim().toLowerCase();
 
-	    // Normalize the filename (optional)
-	    filename = filename.trim().toLowerCase();
-
-	    return filename;
+		return filename;
 	}
-
-
 }
