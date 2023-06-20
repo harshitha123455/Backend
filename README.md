@@ -32,5 +32,5 @@ The **Online Movie Ticket Booking - ShowTime** is a web-based application that a
 5. Build and run the application:
    - Right-click on the project in the Eclipse Package Explorer and select `Run As > Maven Build`.
    - In the Goals field, enter `package` and click Run to build the application.
-   - Right-click on the project again in the Eclipse Package Explorer and select `Run As > Spring Boot App`.
+   - Right-click on the project again in the Eclipse Package Explorer and select `Run As > Spring Boot App`.<br /><br />
 Note: Make sure you have the necessary dependencies and plugins installed in your Eclipse IDE for Java, Spring Boot, and Maven.
