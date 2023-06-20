@@ -16,7 +16,6 @@ The **Online Movie Ticket Booking - ShowTime** is a web-based application that a
 - MySQL
 - HTML
 - CSS
-- JavaScript
 
 ## Setup Instructions
 1. Clone the repository:
