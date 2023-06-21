@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class MovieHighlightServiceImpl implements MovieHighlightService {
 	@Autowired
 	private MovieService service;
 
-	private static final String name = "highlight";
+	private static final String uploadDir = "highlight";
 	private static final String imageBaseUrl = "http://localhost:8880/";
 
 	/**
@@ -41,32 +42,24 @@ public class MovieHighlightServiceImpl implements MovieHighlightService {
 	 */
 	@Override
 	public int save(int id, MultipartFile image) throws MovieNotFoundException {
-		MovieHighlight mh = repo.findById(0).orElse(null);
-		if (mh == null)
-			mh = new MovieHighlight();
+		MovieHighlight mh = new MovieHighlight();
 		mh.setMovie(service.searchById(id));
-
 		try {
 			String fileExtension = StringUtils.getFilenameExtension(image.getOriginalFilename());
-			// Generate the file name based on the movie name
-			String fileName = name + "." + fileExtension;
+			String fileName = convertToLegalFilename(mh.getMovie().getName()) + "." + fileExtension;
 
-			// Create the directory if it doesn't exist
-			Files.createDirectories(Path.of(name));
+			Files.createDirectories(Path.of(uploadDir));
 
-			// Save the image file to the target directory
-			Path filePath = Path.of(name, fileName);
+			Path filePath = Path.of(uploadDir, fileName);
 			Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			mh.setLargePosterUrl(imageBaseUrl + filePath.toString().replace("\\", "/"));
-			mh.setId(0);
 
-			// Save the new movie highlight with ID 0
+			mh.setLargePosterUrl(imageBaseUrl + filePath.toString().replace("\\", "/"));
 			repo.save(mh);
+
+			return mh.getMovie().getId();
 		} catch (IOException e) {
 			return -1;
 		}
-
-		return mh.getMovie().getId();
 	}
 
 	/**
@@ -76,7 +69,36 @@ public class MovieHighlightServiceImpl implements MovieHighlightService {
 	 *         highlight is set.
 	 */
 	@Override
-	public Movie getHighlight() {
-		return repo.findById(0).map(MovieHighlight::getMovie).orElse(null);
+	public List<MovieHighlight> getHighlight() {
+		return repo.findAll();
+	}
+	
+	/**
+	 * Converts the input string to a legal file name.
+	 *
+	 * @param input the input string to convert
+	 * @return the converted legal file name
+	 */
+	public static String convertToLegalFilename(String input) {
+		String illegalChars = "[/\\\\:*?\"<>|]";
+		String replacement = "_";
+		int maxFilenameLength = 255;
+
+		String filename = input.replaceAll(illegalChars, replacement);
+		filename = filename.replaceAll("\\s", replacement);
+
+		if (filename.length() > maxFilenameLength) {
+			filename = filename.substring(0, maxFilenameLength);
+		}
+
+		filename = filename.trim().toLowerCase();
+
+		return filename;
+	}
+
+	@Override
+	public void removeById(int id) {
+		repo.deleteById(id);
+		
 	}
 }
